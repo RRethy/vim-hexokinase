@@ -2,7 +2,8 @@
 
 (Neo)Vim plugin for displaying the colour of 6-digit hex codes, 3-digit hex codes, rgb, and rgba functions
 
-![gif](https://media.giphy.com/media/2aMaIalAsmwHqOPs0T/giphy.gif)
+![gif](https://media.giphy.com/media/PikQiakj2NYxFDmcdl/giphy.gif)
+![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
 
 ## Rational
 
