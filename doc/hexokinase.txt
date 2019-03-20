@@ -34,7 +34,7 @@ COMMANDS                                                *hexokinase-commands*
 CONFIGURATION                                      *hexokinase-configuration*
 ===========================================================================
 
-Highlighters                                      *g:hexokinase_highlighters*
+Highlighters                                      *g:Hexokinase_highlighters*
 
                 Type: |List| of |Strings|
                 How to display the colour.
@@ -44,25 +44,25 @@ Highlighters                                      *g:hexokinase_highlighters*
                   Neovim - virtual for |nvim_buf_set_virtual_text()|
 
                 Example: >
-                  let g:hexokinase_highlighters = ['virtual', 'sign_column']
+                  let g:Hexokinase_highlighters = ['virtual', 'sign_column']
 
-Virtual text                                      *g:hexokinase.virtual_text*
+Virtual text                                      *g:Hexokinase_virtualText*
 
                 Type: |String|
                 Coloured Virtual Text to display
 
                 Default value: >
-                  let g:hexokinase.virtual_text = '■'
+                  let g:Hexokinase_virtualText = '■'
 
-Sign Column Icon                                     *g:hexokinase.sign_icon*
+Sign Column Icon                                     *g:Hexokinase_signIcon*
 
                 Type: |String|
                 Coloured character to display in the |'signcolumn'|
 
                 Default value: >
-                  let g:hexokinase.sign_icon = '■'
+                  let g:Hexokinase_signIcon = '■'
 
-Refresh Events                                  *g:hexokinase.refresh_events*
+Refresh Events                                  *g:Hexokinase_refreshEvents*
 
                 Type: |List| of |String|
                 Which |autocmd| events to refresh the colouring on.
@@ -73,15 +73,15 @@ Refresh Events                                  *g:hexokinase.refresh_events*
                 'BufWritePost'.
 
                 Default value: >
-                  let g:hexokinase.refresh_events = ['BufWritePost']
+                  let g:Hexokinase_refreshEvents = ['BufWritePost']
 
-Auto Enabled FileTypes                             *g:hexokinase.ft_autoload*
+Auto Enabled FileTypes                             *g:Hexokinase_ftAutoload*
 
                 Type: |List| of |String|
                 Which |filetype| to automatically turn on the colouring
 
                 Default value: >
-                  let g:hexokinase.ft_autoload = ['']
+                  let g:Hexokinase_ftAutoload = ['']
 
 
 CREATE HIGHLIGHTERS                                 *hexokinase-highlighters*
@@ -109,7 +109,7 @@ highlight_callback({lnum}, {hex}, {hl_name})  *hexokinase-highlight_callback*
 
                 This gets setup using the following (note: the name of the
                 function doesn't matter since it is a function reference): >
-                  let g:hexokinase.highlightCallbacks = [function('highlight_callback')]
+                  let g:Hexokinase_highlightCallbacks = [function('highlight_callback')]
 
 teardown_callback()                            *hexokinase-teardown_callback*
 
@@ -119,7 +119,7 @@ teardown_callback()                            *hexokinase-teardown_callback*
 
                 This gets setup using the following (note: the name of the
                 function doesn't matter since it is a function reference): >
-                  let g:hexokinase.tearDownCallbacks = [function('teardown_callback')]
+                  let g:Hexokinase_tearDownCallbacks = [function('teardown_callback')]
 
 
 CREATE PATTERNS                                         *hexokinase-patterns*
@@ -151,7 +151,7 @@ process_pattern({match})                         *hexokinase-process_pattern*
 
                 This gets setup using the following (note: the name of the
                 function doesn't matter since it is a function reference): >
-                  let g:hexokinase.patterns = { '#\x\{3}': function('process_pattern') }
+                  let g:Hexokinase_patterns = { '#\x\{3}': function('process_pattern') }
 
 
 vim:tw=78:ts=8:ft=help:norl:

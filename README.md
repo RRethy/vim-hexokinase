@@ -30,44 +30,44 @@ Which highlighters to use can be see with the following:
 
 ```vim
 " Default for Vim
-let g:hexokinase_highlighters = ['sign_column']
+let g:Hexokinase_highlighters = ['sign_column']
 
 " Default for Neovim
-let g:hexokinase_highlighters = ['virtual']
+let g:Hexokinase_highlighters = ['virtual']
 ```
 
 The icon/text to display the highlighting can also be customized:
 
 ```vim
 " Default virtual text
-let g:hexokinase.virtual_text = '■'
+let g:Hexokinase_virtualText = '■'
 
 " Default sign column icon
-let g:hexokinase.sign_icon = '■'
+let g:Hexokinase_signIcon = '■'
 ```
 
 You can customized which autocmd-events will trigger the highlighting to be refreshed.
 
 ```vim
 " Default event to trigger and update
-let g:hexokinase.refresh_events = ['BufWritePost']
+let g:Hexokinase_refreshEvents = ['BufWritePost']
 
 " To make it almost live
 " This may cause some lag if there are a lot of colours in the file
-let g:hexokinase.refresh_events = ['TextChanged', 'TextChangedI']
+let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
 ```
 
 The following will customize which filetypes will automatically enable the colouring
 
 ```vim
 " Default is to not auto-enable for any filetype
-let g:hexokinase.ft_autoload = ['']
+let g:Hexokinase_ftAutoload = ['']
 
 " Enable for all filetypes
-let g:hexokinase.ft_autoload = ['*']
+let g:Hexokinase_ftAutoload = ['*']
 
 " Enable for css and xml
-let g:hexokinase.ft_autoload = ['css', 'xml']
+let g:Hexokinase_ftAutoload = ['css', 'xml']
 ```
 
 For advanced customization, check the help docs for `hexokinase-highlighters` and `hexokinase-patterns`.

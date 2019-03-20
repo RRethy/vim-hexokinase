@@ -6,7 +6,7 @@ fun! hexokinase#highlighters#virtual#highlight(lnum, hex, hl_name) abort
           \   bufnr('%'),
           \   s:namespace,
           \   a:lnum - 1,
-          \   [[g:hexokinase.virtual_text, a:hl_name]],
+          \   [[g:Hexokinase_virtualText, a:hl_name]],
           \   {}
           \ )
   endif

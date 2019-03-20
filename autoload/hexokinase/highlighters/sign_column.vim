@@ -3,7 +3,7 @@ fun! hexokinase#highlighters#sign_column#highlight(lnum, hex, hl_name) abort
 
   let sign_name = a:hl_name . 'sign'
   let sign_id = 4000 + a:lnum
-  exe 'sign define ' . sign_name . ' text=' . g:hexokinase.sign_icon . ' texthl=' . a:hl_name
+  exe 'sign define ' . sign_name . ' text=' . g:Hexokinase_signIcon . ' texthl=' . a:hl_name
   exe 'sign place ' . sign_id . ' line=' . a:lnum . ' name=' . sign_name . ' file=' . expand('%:p')
 
   call add(b:sign_ids, sign_id)

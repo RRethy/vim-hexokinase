@@ -11,7 +11,7 @@ endf
 
 fun! hexokinase#scrape_colours() abort
   let lnum = 1
-  let pattern = hexokinase#utils#build_pattern(keys(g:hexokinase.patterns))
+  let pattern = hexokinase#utils#build_pattern(keys(g:Hexokinase_patterns))
   for lnum in range(1, line('$'))
     let line_text = getline(lnum)
     let n = 1
@@ -21,9 +21,9 @@ fun! hexokinase#scrape_colours() abort
     " match all colours on the line
     while colourMatch !=# ''
       let processed = 0
-      for pattern_regex in keys(g:hexokinase.patterns)
+      for pattern_regex in keys(g:Hexokinase_patterns)
         if colourMatch =~# '^' . pattern_regex . '$'
-          let colourMatch = g:hexokinase.patterns[pattern_regex](colourMatch)
+          let colourMatch = g:Hexokinase_patterns[pattern_regex](colourMatch)
           if !empty(colourMatch)
             let processed = 1
             break
@@ -43,7 +43,7 @@ fun! hexokinase#scrape_colours() abort
       " Create the highlight group
       let hl_name = 'hexokinaseHighlight'.strpart(colourMatch, 1)
       exe 'hi '.hl_name.' guifg='.colourMatch
-      for F in g:hexokinase.highlightCallbacks
+      for F in g:Hexokinase_highlightCallbacks
         call F(lnum, colourMatch, hl_name)
       endfor
       let n += 1
@@ -53,7 +53,7 @@ fun! hexokinase#scrape_colours() abort
 endf
 
 fun! hexokinase#tear_down() abort
-  for F in g:hexokinase.tearDownCallbacks
+  for F in g:Hexokinase_tearDownCallbacks
     call F()
   endfor
 endf
