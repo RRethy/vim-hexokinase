@@ -91,3 +91,9 @@ mkdir -p ~/.vim/pack/plugins/start
 cd ~/.vim/pack/plugins/start
 git clone https://github.com/RRethy/vim-hexokinase.git
 ```
+
+## FAQs
+
+> When I customize the icon/text for the displayed colour, it disappears
+
+The colouring is done with foreground highlighting rather than the background, so the icon/text cannot be spaces, instead use the `FULL BLOCK` diagraph: █.
