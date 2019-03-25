@@ -42,6 +42,9 @@ The icon/text to display the highlighting can also be customized:
 " Default virtual text
 let g:Hexokinase_virtualText = '■'
 
+" This can also be nice
+let g:Hexokinase_virtualText = '██████'
+
 " Default sign column icon
 let g:Hexokinase_signIcon = '■'
 ```
