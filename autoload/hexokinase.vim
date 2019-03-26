@@ -9,6 +9,13 @@ fun! hexokinase#toggle_scraping() abort
   endif
 endf
 
+fun! hexokinase#on_autoload_ft_set() abort
+  let b:hexokinase_scraper_on = !get(b:, 'hexokinase_scraper_on', 0)
+  if b:hexokinase_scraper_on
+    call hexokinase#scrape_colours()
+  endif
+endf
+
 fun! hexokinase#scrape_colours() abort
   let lnum = 1
   let pattern = hexokinase#utils#build_pattern(keys(g:Hexokinase_patterns))
