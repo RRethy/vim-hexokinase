@@ -52,7 +52,9 @@ if has('autocmd')
     for event in g:Hexokinase_refreshEvents
       exe 'autocmd '.event.' * call s:on_refresh_event()'
     endfor
-    exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload).' call s:toggle()'
+    if !empty(g:Hexokinase_ftAutoload)
+      exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call s:toggle()'
+    endif
   augroup END
 endif
 
