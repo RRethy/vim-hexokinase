@@ -53,7 +53,7 @@ if has('autocmd')
       exe 'autocmd '.event.' * call s:on_refresh_event()'
     endfor
     if !empty(g:Hexokinase_ftAutoload)
-      exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call s:toggle()'
+      exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#on_autoload_ft_set()'
     endif
   augroup END
 endif

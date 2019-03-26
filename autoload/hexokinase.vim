@@ -1,11 +1,23 @@
 fun! hexokinase#toggle_scraping() abort
   let b:hexokinase_scraper_on = !get(b:, 'hexokinase_scraper_on', 0)
+  let g:Hexokinase_silent = get(g:, 'Hexokinase_silent', 0)
   if b:hexokinase_scraper_on
     call hexokinase#scrape_colours()
-    echom 'Turned on highlighting'
+    if !g:Hexokinase_silent
+      echo 'Turned on highlighting'
+    endif
   else
     call hexokinase#tear_down()
-    echom 'Turned off highlighting'
+    if !g:Hexokinase_silent
+      echo 'Turned off highlighting'
+    endif
+  endif
+endf
+
+fun! hexokinase#on_autoload_ft_set() abort
+  let b:hexokinase_scraper_on = !get(b:, 'hexokinase_scraper_on', 0)
+  if b:hexokinase_scraper_on
+    call hexokinase#scrape_colours()
   endif
 endf
 

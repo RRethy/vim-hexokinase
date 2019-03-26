@@ -83,6 +83,15 @@ Auto Enabled FileTypes                             *g:Hexokinase_ftAutoload*
                 Default value: >
                   let g:Hexokinase_ftAutoload = ['']
 
+Silence Hexokinase                                     *g:Hexokinase_silent*
+
+                Type: 0 or 1
+                Whether or not to echo a message when turning on/off the
+                highlighting
+
+                Default value: >
+                  let g:Hexokinase_silent = 0
+
 
 CREATE HIGHLIGHTERS                                 *hexokinase-highlighters*
 ===========================================================================
