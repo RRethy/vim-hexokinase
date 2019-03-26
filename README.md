@@ -20,7 +20,7 @@ The plugin was built with extensibility in mind, almost everything can be custom
 ## Requirements
 
 - For *virtual text*: Neovim 0.3.2
-- For sign_column: Vim compiled with `+signs` or Neovim
+- For *sign_column*: Vim compiled with `+signs` or any Neovim version
 
 ## Commands
 
