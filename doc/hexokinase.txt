@@ -20,6 +20,8 @@ Currently, due to the nature of the highlighters, only a single colour per
 line will be displayed. This can easily be changed with a custom highlighter,
 see |hexokinase-highlighters|.
 
+Note |'termguicolors'| must be turned on and your terminal must support it.
+
 COMMANDS                                                *hexokinase-commands*
 ===========================================================================
 

@@ -19,6 +19,7 @@ The plugin was built with extensibility in mind, almost everything can be custom
 
 ## Requirements
 
+- `:h 'termguicolors'` must be turned on and your terminal must support it
 - For *virtual text*: Neovim 0.3.2
 - For *sign_column*: Vim compiled with `+signs` or any Neovim version
 
