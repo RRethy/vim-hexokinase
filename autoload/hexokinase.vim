@@ -2,10 +2,14 @@ fun! hexokinase#toggle_scraping() abort
   let b:hexokinase_scraper_on = !get(b:, 'hexokinase_scraper_on', 0)
   if b:hexokinase_scraper_on
     call hexokinase#scrape_colours()
-    echom 'Turned on highlighting'
+    if !empty(g:hexokinase_debug)
+      echom 'Turned on highlighting'
+    endif
   else
     call hexokinase#tear_down()
-    echom 'Turned off highlighting'
+    if !empty(g:hexokinase_debug)
+      echom 'Turned off highlighting'
+    endif
   endif
 endf
 
