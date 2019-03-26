@@ -69,7 +69,7 @@ The following will customize which filetypes will automatically enable the colou
 
 ```vim
 " Default is to not auto-enable for any filetype
-let g:Hexokinase_ftAutoload = ['']
+let g:Hexokinase_ftAutoload = []
 
 " Enable for all filetypes
 let g:Hexokinase_ftAutoload = ['*']

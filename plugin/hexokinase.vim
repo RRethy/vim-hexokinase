@@ -44,7 +44,7 @@ command! HexokinaseToggle call hexokinase#toggle_scraping()
 command! HexokinaseRefresh call hexokinase#tear_down() | call hexokinase#scrape_colours()
 
 let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['BufWritePost'])
-let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', [''])
+let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', [])
 
 if has('autocmd')
   augroup hexokinase_autocmds

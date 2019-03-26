@@ -81,7 +81,7 @@ Auto Enabled FileTypes                             *g:Hexokinase_ftAutoload*
                 Which |filetype| to automatically turn on the colouring
 
                 Default value: >
-                  let g:Hexokinase_ftAutoload = ['']
+                  let g:Hexokinase_ftAutoload = []
 
 Silence Hexokinase                                     *g:Hexokinase_silent*
 
