@@ -10,6 +10,8 @@ endif
 
 let g:loaded_hexokinase = 1
 
+let g:Hexokinase_debug = get(g:, 'Hexokinase_debug', '')
+
 if has('nvim')
   let g:Hexokinase_highlighters = get(g:, 'Hexokinase_highlighters', ['virtual'])
 else
