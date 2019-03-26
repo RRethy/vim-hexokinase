@@ -17,6 +17,11 @@ It has currently two methods for displaying the colours, either in the sign colu
 
 The plugin was built with extensibility in mind, almost everything can be customized or extended.
 
+## Requirements
+
+- For *virtual text*: Neovim 0.3.2
+- For sign_column: Vim compiled with `+signs` or Neovim
+
 ## Commands
 
 | Command           | Description           |
