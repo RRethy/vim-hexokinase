@@ -104,16 +104,18 @@ Text feature. However, this can easily be extended. To extend you need two
 functions with the following signature (the name doesn't matter since it gets
 passed as a function reference below):
 
-highlight_callback({lnum}, {hex}, {hl_name})  *hexokinase-highlight_callback*
+highlight_callback({lnum}, {hex}, {hl_name}, {start}, {end})  *hexokinase-highlight_callback*
 
                 {lnum} is an Integer while the line number of the colour
                 (indexed at 1), {lnum} may repeat if multiple matches are
-                found on the same line. {hex} is the hex for the matched
-                colour.  {hl_name} is the name of the highlight group that was
-                defined for the highlighting. By default, the auto-generated
-                highlight group will only set the value for |highlight-guifg|
-                and |highlight-ctermfg|, if you want the background to change
-                then you need to create your own highlight group using {hex}.
+                found on the same line. {start} and {end} are the start and
+                end (respectively) of the matched colour. {hex} is the hex for
+                the matched colour.  {hl_name} is the name of the highlight
+                group that was defined for the highlighting. By default, the
+                auto-generated highlight group will only set the value for
+                |highlight-guifg| and |highlight-ctermfg|, if you want the
+                background to change then you need to create your own
+                highlight group using {hex}.
 
                 This will get triggered when a match is found and would be
                 responsible for doing the work to display the match.
