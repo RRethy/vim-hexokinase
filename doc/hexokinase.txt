@@ -45,8 +45,13 @@ Highlighters                                      *g:Hexokinase_highlighters*
                   Vim - sign_column for |'signcolumn'|
                   Neovim - virtual for |nvim_buf_set_virtual_text()|
 
-                Example: >
-                  let g:Hexokinase_highlighters = ['virtual', 'sign_column']
+                Possible values: >
+                  let g:Hexokinase_highlighters = [
+                  \   'virtual',
+                  \   'sign_column',
+                  \   'background',
+                  \   'foreground'
+                  \ ]
 
 Virtual text                                      *g:Hexokinase_virtualText*
 
