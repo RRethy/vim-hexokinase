@@ -58,7 +58,7 @@ fun! hexokinase#scrape_colours() abort
       exe 'hi '.hl_name.' guifg='.colourMatch
       for F in g:Hexokinase_highlightCallbacks
         try
-          call F(lnum, colourMatch, hl_name, start, end)
+          call F(lnum, colourMatch, hl_name, start + 1, end)
         catch /\vE11[89]/
           let errormsg = string(F).' has an incorrect signature, check :h hexokinase-highlight_callback for more info'
           call F(lnum, colourMatch, hl_name)
