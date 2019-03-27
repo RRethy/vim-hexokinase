@@ -1,6 +1,6 @@
 let s:namespace = nvim_create_namespace('')
 
-fun! hexokinase#highlighters#virtual#highlight(lnum, hex, hl_name) abort
+fun! hexokinase#highlighters#virtual#highlight(lnum, hex, hl_name, start, end) abort
   if has('nvim')
     call nvim_buf_set_virtual_text(
           \   bufnr('%'),

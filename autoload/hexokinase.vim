@@ -23,6 +23,7 @@ endf
 
 fun! hexokinase#scrape_colours() abort
   let lnum = 1
+  let errormsg = ''
   " Builds a regex that handles all colour patterns
   let pattern = hexokinase#utils#build_pattern(keys(g:Hexokinase_patterns))
   for lnum in range(1, line('$'))
@@ -30,7 +31,7 @@ fun! hexokinase#scrape_colours() abort
     let n = 1
 
     " match all colours on the line
-    let colourMatch = matchstr(line_text, pattern, 0, n)
+    let [colourMatch,start,end] = matchstrpos(line_text, pattern, 0, n)
     while colourMatch !=# ''
       let processed = 0
       for pattern_regex in keys(g:Hexokinase_patterns)
@@ -48,7 +49,7 @@ fun! hexokinase#scrape_colours() abort
       " This could happen for something like rgb(500,500,500)
       if !processed
         let n += 1
-        let colourMatch = matchstr(line_text, pattern, 0, n)
+        let [colourMatch,start,end] = matchstrpos(line_text, pattern, 0, n)
         continue
       endif
 
@@ -56,12 +57,21 @@ fun! hexokinase#scrape_colours() abort
       let hl_name = 'hexokinaseHighlight'.strpart(colourMatch, 1)
       exe 'hi '.hl_name.' guifg='.colourMatch
       for F in g:Hexokinase_highlightCallbacks
-        call F(lnum, colourMatch, hl_name)
+        try
+          call F(lnum, colourMatch, hl_name, start, end)
+        catch /\vE11[89]/
+          let errormsg = string(F).' has an incorrect signature, check :h hexokinase-highlight_callback for more info'
+          call F(lnum, colourMatch, hl_name)
+        endtry
       endfor
       let n += 1
-      let colourMatch = matchstr(line_text, pattern, 0, n)
+      let [colourMatch,start,end] = matchstrpos(line_text, pattern, 0, n)
     endwhile
   endfor
+
+  if !empty(errormsg)
+    echom errormsg
+  endif
 endf
 
 fun! hexokinase#tear_down() abort

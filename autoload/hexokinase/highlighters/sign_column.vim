@@ -1,4 +1,4 @@
-fun! hexokinase#highlighters#sign_column#highlight(lnum, hex, hl_name) abort
+fun! hexokinase#highlighters#sign_column#highlight(lnum, hex, hl_name, start, end) abort
   let b:sign_ids = get(b:, 'sign_ids', [])
 
   let sign_name = a:hl_name . 'sign'
