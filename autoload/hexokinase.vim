@@ -23,14 +23,14 @@ endf
 
 fun! hexokinase#scrape_colours() abort
   let lnum = 1
+  " Builds a regex that handles all colour patterns
   let pattern = hexokinase#utils#build_pattern(keys(g:Hexokinase_patterns))
   for lnum in range(1, line('$'))
     let line_text = getline(lnum)
     let n = 1
-    " Builds a regex that handles all colour patterns
-    let colourMatch = matchstr(line_text, pattern, 0, n)
 
     " match all colours on the line
+    let colourMatch = matchstr(line_text, pattern, 0, n)
     while colourMatch !=# ''
       let processed = 0
       for pattern_regex in keys(g:Hexokinase_patterns)
