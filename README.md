@@ -7,7 +7,7 @@
 
 ## Rationale
 
-[Colorizer](https://github.com/lilydjwg/colorizer) is a plugin which also displays the colour of text. However, it does so by changing the background of the text which is not pleasing to look at. Most IDEs and modern editors will display the colour in the gutter (in Vim known as the sign column) or as virtual text. This plugin aims to bring that now to Vim, as well as make it easy for the user to add new highlighters.
+[Colorizer](https://github.com/chrisbra/Colorizer) and [Colorizer](https://github.com/lilydjwg/colorizer) are plugins which also display the colour of text. However, it does so by changing the background of the text which is not pleasing to look at. Most IDEs and modern editors will display the colour in the gutter (in Vim known as the sign column) or as virtual text. This plugin aims to bring that now to Vim, as well as make it easy for the user to add new highlighters.
 
 ## About
 
@@ -48,7 +48,7 @@ The icon/text to display the highlighting can also be customized:
 " Default virtual text
 let g:Hexokinase_virtualText = '■'
 
-" This can also be nice
+" This is my personal setting
 let g:Hexokinase_virtualText = '██████'
 
 " Default sign column icon
@@ -100,9 +100,3 @@ mkdir -p ~/.vim/pack/plugins/start
 cd ~/.vim/pack/plugins/start
 git clone https://github.com/RRethy/vim-hexokinase.git
 ```
-
-## FAQs
-
-> When I customize the icon/text for the displayed colour, it disappears
-
-The colouring is done with foreground highlighting rather than the background, so the icon/text cannot be spaces, instead use the `FULL BLOCK` diagraph: █.
