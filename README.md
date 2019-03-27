@@ -2,10 +2,20 @@
 
 (Neo)Vim plugin for displaying the colour of 6-digit hex codes, 3-digit hex codes, rgb, and rgba functions
 
+> let g:Hexokinase_highlighters = ['virtual']
+
 ![gif](https://media.giphy.com/media/PikQiakj2NYxFDmcdl/giphy.gif)
+
+> let g:Hexokinase_highlighters = ['sign_column']
+
 ![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
 
+> let g:Hexokinase_highlighters = ['foreground']
+
 <img src="https://user-images.githubusercontent.com/21000943/55044478-d84af280-5010-11e9-83ed-53a7d3bb61e3.png" width=512 height=320 />
+
+> let g:Hexokinase_highlighters = ['background']
+
 <img src="https://user-images.githubusercontent.com/21000943/55044477-d84af280-5010-11e9-8fa0-db9d8493bb1d.png" width=512 height=320 />
 
 ## Rationale
