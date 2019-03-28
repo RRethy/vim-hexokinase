@@ -11,6 +11,10 @@ endf
 fun! hexokinase#highlighters#foreground#tearDown() abort
   let b:fg_match_ids = get(b:, 'fg_match_ids', [])
   for id in b:fg_match_ids
-    call matchdelete(id)
+    try
+      call matchdelete(id)
+    catch /\v(E803|E802)/
+    endtry
   endfor
+  let b:fg_match_ids = []
 endf
