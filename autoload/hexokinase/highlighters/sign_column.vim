@@ -10,6 +10,7 @@ fun! hexokinase#highlighters#sign_column#highlight(lnum, hex, hl_name, start, en
 endf
 
 fun! hexokinase#highlighters#sign_column#tearDown() abort
+  let b:sign_ids = get(b:, 'sign_ids', [])
   for sign_id in b:sign_ids
     exe 'sign unplace ' . sign_id . ' file=' . expand('%:p')
   endfor
