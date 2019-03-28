@@ -26,16 +26,20 @@ fun! hexokinase#scrape_colours() abort
   let errormsg = ''
   " Builds a regex that handles all colour patterns
   let pattern = hexokinase#utils#build_pattern(keys(g:Hexokinase_patterns))
+
   for lnum in range(1, line('$'))
+
     let line_text = getline(lnum)
     let n = 1
+    let colorsInfo = []
 
-    " match all colours on the line
     let [colourMatch,start,end] = matchstrpos(line_text, pattern, 0, n)
+    " Try to process the colour to a six digit hex code
     while colourMatch !=# ''
       let processed = 0
       for pattern_regex in keys(g:Hexokinase_patterns)
         if colourMatch =~# '^' . pattern_regex . '$'
+          " Call the appropriate pocessor to get a six digit hex or empty str
           let colourMatch = g:Hexokinase_patterns[pattern_regex](colourMatch)
           if !empty(colourMatch)
             let processed = 1
@@ -47,12 +51,19 @@ fun! hexokinase#scrape_colours() abort
       " The colour that got matched was invalid so avoid matching it and
       " continue
       " This could happen for something like rgb(500,500,500)
-      if !processed
-        let n += 1
-        let [colourMatch,start,end] = matchstrpos(line_text, pattern, 0, n)
-        continue
+      if processed
+        call add(colorsInfo, [colourMatch, start, end])
       endif
+      let n += 1
+      let [colourMatch,start,end] = matchstrpos(line_text, pattern, 0, n)
+    endwhile
 
+    " Reverse such that the last highlighting is the first color and thus
+    " can overwrite other highlighting (sign_column, virtual)
+    " https://github.com/RRethy/vim-hexokinase/issues/12
+    call reverse(colorsInfo)
+
+    for [colourMatch,start,end] in colorsInfo
       " Create the highlight group
       let hl_name = 'hexokinaseHighlight'.strpart(colourMatch, 1)
       exe 'hi '.hl_name.' guifg='.colourMatch
@@ -64,9 +75,7 @@ fun! hexokinase#scrape_colours() abort
           call F(lnum, colourMatch, hl_name)
         endtry
       endfor
-      let n += 1
-      let [colourMatch,start,end] = matchstrpos(line_text, pattern, 0, n)
-    endwhile
+    endfor
   endfor
 
   if !empty(errormsg)
