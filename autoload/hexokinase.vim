@@ -23,7 +23,6 @@ endf
 
 fun! hexokinase#scrape_colours() abort
   let lnum = 1
-  let errormsg = ''
   " Builds a regex that handles all colour patterns
   let pattern = hexokinase#utils#build_pattern(keys(g:Hexokinase_patterns))
 
@@ -68,19 +67,10 @@ fun! hexokinase#scrape_colours() abort
       let hl_name = 'hexokinaseHighlight'.strpart(colourMatch, 1)
       exe 'hi '.hl_name.' guifg='.colourMatch
       for F in g:Hexokinase_highlightCallbacks
-        try
-          call F(lnum, colourMatch, hl_name, start + 1, end)
-        catch /\vE11[89]/
-          let errormsg = string(F).' has an incorrect signature, check :h hexokinase-highlight_callback for more info'
-          call F(lnum, colourMatch, hl_name)
-        endtry
+        call F(lnum, colourMatch, hl_name, start + 1, end)
       endfor
     endfor
   endfor
-
-  if !empty(errormsg)
-    echom errormsg
-  endif
 endf
 
 fun! hexokinase#tear_down() abort
