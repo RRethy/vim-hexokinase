@@ -6,9 +6,16 @@ fun! hexokinase#highlighters#foreground#highlight(lnum, hex, hl_name, start, end
   else
     call add(b:fg_match_ids, matchaddpos(a:hl_name, [[a:lnum, a:start, 1]]))
   endif
+  augroup hexokinase_foreground_autocmds
+    autocmd!
+    autocmd BufHidden * call hexokinase#highlighters#foreground#tearDown()
+  augroup END
 endf
 
 fun! hexokinase#highlighters#foreground#tearDown() abort
+  augroup hexokinase_foreground_autocmds
+    autocmd!
+  augroup END
   let b:fg_match_ids = get(b:, 'fg_match_ids', [])
   for id in b:fg_match_ids
     try
