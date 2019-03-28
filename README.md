@@ -10,14 +10,6 @@
 
 ![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
 
-> let g:Hexokinase_highlighters = ['foreground']
-
-<img src="https://user-images.githubusercontent.com/21000943/55044478-d84af280-5010-11e9-83ed-53a7d3bb61e3.png" width=512 height=320 />
-
-> let g:Hexokinase_highlighters = ['background']
-
-<img src="https://user-images.githubusercontent.com/21000943/55044477-d84af280-5010-11e9-8fa0-db9d8493bb1d.png" width=512 height=320 />
-
 ## Rationale
 
 [Colorizer](https://github.com/chrisbra/Colorizer) and [Colorizer](https://github.com/lilydjwg/colorizer) are plugins which also display the colour of text. However, it does so by changing the background of the text which is not pleasing to look at. Most IDEs and modern editors will display the colour in the gutter (in Vim known as the sign column) or as virtual text. This plugin aims to bring that now to Vim, as well as make it easy for the user to add new highlighters.
@@ -53,6 +45,9 @@ let g:Hexokinase_highlighters = ['sign_column']
 
 " Default for Neovim
 let g:Hexokinase_highlighters = ['virtual']
+
+" All available highlighters
+let g:Hexokinase_highlighters = ['virtual', 'sign_column', 'background', 'foreground']
 ```
 
 The icon/text to display the highlighting can also be customized:
