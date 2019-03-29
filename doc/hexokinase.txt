@@ -180,4 +180,7 @@ process_pattern({match})                         *hexokinase-process_pattern*
                   \ }
 
 
+A more complete example can be found here:
+https://github.com/RRethy/vim-hexokinase/issues/16.
+
 vim:tw=78:ts=8:ft=help:norl:
