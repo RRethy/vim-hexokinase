@@ -49,12 +49,10 @@ fun! hexokinase#utils#get_background_rgb() abort
 endf
 
 fun! hexokinase#utils#get_background_hex() abort
-  if index(g:Hexokinase_highlighters, 'virtual') >= 0
-        \ || index(g:Hexokinase_highlighters, 'sign_column') >= 0
-        \ || empty(synIDattr(hlID('SignColumn'), 'bg'))
-    return synIDattr(hlID('Normal'), 'bg')
-  elseif index(g:Hexokinase_highlighters, 'sign_column') >= 0
+  if len(g:Hexokinase_highlighters) == 1 && g:Hexokinase_highlighters[0] == 'sign_column'
     return synIDattr(hlID('SignColumn'), 'bg')
+  else
+    return synIDattr(hlID('Normal'), 'bg')
   endif
 endf
 
