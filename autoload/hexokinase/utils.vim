@@ -3,8 +3,18 @@ let s:hexadecimals = ['0', '1', '2', '3',
                     \ '8', '9', 'A', 'B',
                     \ 'C', 'D', 'E', 'F']
 
-fun! hexokinase#utils#build_pattern(patternsList) abort
-  return '\%\(' . join(a:patternsList, '\|') . '\)'
+fun! hexokinase#utils#get_colour_pattern(patterns_list) abort
+  return '\%\(' . join(a:patterns_list, '\|') . '\)'
+endf
+
+" Combine the filetype specific pattern/processor map with the global one
+fun! hexokinase#utils#get_pat_proc_map() abort
+  let pattern_processor_map = {}
+  if has_key(g:Hexokinase_ft_patterns, &filetype)
+    call extend(pattern_processor_map, g:Hexokinase_ft_patterns[&filetype])
+  endif
+  call extend(pattern_processor_map, g:Hexokinase_patterns)
+  return pattern_processor_map
 endf
 
 " rgbList should be a list of numbers
@@ -43,7 +53,7 @@ fun! hexokinase#utils#get_background_hex() abort
         \ || index(g:Hexokinase_highlighters, 'sign_column') >= 0
         \ || empty(synIDattr(hlID('SignColumn'), 'bg'))
     return synIDattr(hlID('Normal'), 'bg')
-  else index(g:Hexokinase_highlighters, 'sign_column') >= 0
+  elseif index(g:Hexokinase_highlighters, 'sign_column') >= 0
     return synIDattr(hlID('SignColumn'), 'bg')
   endif
 endf

@@ -23,8 +23,10 @@ endf
 
 fun! hexokinase#scrape_colours() abort
   let lnum = 1
+  " Builds a map of patterns to processors
+  let pattern_processor_map = hexokinase#utils#get_pat_proc_map()
   " Builds a regex that handles all colour patterns
-  let pattern = hexokinase#utils#build_pattern(keys(g:Hexokinase_patterns))
+  let pattern = hexokinase#utils#get_colour_pattern(keys(pattern_processor_map))
 
   for lnum in range(1, line('$'))
 
@@ -36,10 +38,10 @@ fun! hexokinase#scrape_colours() abort
     " Try to process the colour to a six digit hex code
     while colourMatch !=# ''
       let processed = 0
-      for pattern_regex in keys(g:Hexokinase_patterns)
+      for pattern_regex in keys(pattern_processor_map)
         if colourMatch =~# '^' . pattern_regex . '$'
           " Call the appropriate pocessor to get a six digit hex or empty str
-          let colourMatch = g:Hexokinase_patterns[pattern_regex](colourMatch)
+          let colourMatch = pattern_processor_map[pattern_regex](colourMatch)
           if !empty(colourMatch)
             let processed = 1
             break
