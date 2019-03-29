@@ -172,5 +172,12 @@ process_pattern({match})                         *hexokinase-process_pattern*
                 function doesn't matter since it is a function reference): >
                   let g:Hexokinase_patterns = { '#\x\{3}': function('process_pattern') }
 
+                  " or for filetype specific patterns, you can do:
+                  let g:Hexokinase_ft_patterns = {
+                  \   'css' : {
+                  \     '#\x\{3}': function('process_pattern')
+                  \   }
+                  \ }
+
 
 vim:tw=78:ts=8:ft=help:norl:
