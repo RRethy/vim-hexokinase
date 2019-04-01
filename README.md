@@ -20,7 +20,7 @@ This plugin will display the colour of hex codes (both 6 and 3 digit), and rgb/r
 
 It has currently two methods for displaying the colours, either in the sign column or as virtual text (Neovim exclusive).
 
-The plugin was built with extensibility in mind, almost everything can be customized or extended.
+The plugin was built with extensibility in mind ([it can be configured to colour variables](https://github.com/RRethy/vim-hexokinase/issues/16)), almost everything can be customized or extended.
 
 ## Requirements
 
