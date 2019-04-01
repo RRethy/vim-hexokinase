@@ -47,7 +47,7 @@ let g:Hexokinase_highlighters = ['sign_column']
 let g:Hexokinase_highlighters = ['virtual']
 
 " All available highlighters
-let g:Hexokinase_highlighters = ['virtual', 'sign_column', 'background', 'foreground']
+let g:Hexokinase_highlighters = ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull']
 ```
 
 The icon/text to display the highlighting can also be customized:

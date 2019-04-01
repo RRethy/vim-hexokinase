@@ -50,7 +50,8 @@ Highlighters                                      *g:Hexokinase_highlighters*
                   \   'virtual',
                   \   'sign_column',
                   \   'background',
-                  \   'foreground'
+                  \   'foreground',
+                  \   'foregroundfull'
                   \ ]
 
 Virtual text                                      *g:Hexokinase_virtualText*

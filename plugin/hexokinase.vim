@@ -27,7 +27,7 @@ let g:Hexokinase_patterns[hexokinase#patterns#rgb#get_pattern()] = function('hex
 let g:Hexokinase_patterns[hexokinase#patterns#rgba#get_pattern()] = function('hexokinase#patterns#rgba#process')
 let g:Hexokinase_ft_patterns = get(g:, 'Hexokinase_ft_patterns', {})
 
-let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground'])
+let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull'])
 
 " initialize various highlighters
 let g:Hexokinase_highlightCallbacks = get(g:, 'Hexokinase_highlightCallbacks', [])
