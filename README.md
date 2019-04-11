@@ -87,6 +87,13 @@ let g:Hexokinase_ftAutoload = ['*']
 let g:Hexokinase_ftAutoload = ['css', 'xml']
 ```
 
+The following will customize which builtin patterns you want `vim-hexokinase` to match
+
+```vim
+" This is the default value
+let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba']
+```
+
 For advanced customization, check the help docs for `hexokinase-highlighters` and `hexokinase-patterns`.
 
 ## Installation

@@ -100,6 +100,19 @@ Silence Hexokinase                                     *g:Hexokinase_silent*
                 Default value: >
                   let g:Hexokinase_silent = 0
 
+Opt-in Patterns                                 *g:Hexokinase_optInPatterns*
+
+                Type: |List| of |String|
+                Which builtin patterns hexokinase should match.
+
+                Default value: >
+                  let g:Hexokinase_optInPatterns = [
+                        \ 'full_hex',
+                        \ 'triple_hex',
+                        \ 'rgb',
+                        \ 'rgba'
+                        \ ]
+
 
 CREATE HIGHLIGHTERS                                 *hexokinase-highlighters*
 ===========================================================================

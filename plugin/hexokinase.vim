@@ -20,11 +20,20 @@ let g:Hexokinase_virtualText = get(g:, 'Hexokinase_virtualText', '■')
 let g:Hexokinase_signIcon = get(g:, 'Hexokinase_signIcon', '■')
 
 " initialize various patterns that are supported by default
+let g:Hexokinase_optInPatterns = get(g:, 'Hexokinase_optInPatterns', ['full_hex', 'triple_hex', 'rgb', 'rgba'])
 let g:Hexokinase_patterns = get(g:, 'Hexokinase_patterns', {})
-let g:Hexokinase_patterns[hexokinase#patterns#full_hex#get_pattern()] = function('hexokinase#patterns#full_hex#process')
-let g:Hexokinase_patterns[hexokinase#patterns#triple_hex#get_pattern()] = function('hexokinase#patterns#triple_hex#process')
-let g:Hexokinase_patterns[hexokinase#patterns#rgb#get_pattern()] = function('hexokinase#patterns#rgb#process')
-let g:Hexokinase_patterns[hexokinase#patterns#rgba#get_pattern()] = function('hexokinase#patterns#rgba#process')
+for pat in g:Hexokinase_optInPatterns
+  if pat ==# 'full_hex'
+    let g:Hexokinase_patterns[hexokinase#patterns#full_hex#get_pattern()] = function('hexokinase#patterns#full_hex#process')
+  elseif pat ==# 'triple_hex'
+    let g:Hexokinase_patterns[hexokinase#patterns#triple_hex#get_pattern()] = function('hexokinase#patterns#triple_hex#process')
+  elseif pat ==# 'rgb'
+    let g:Hexokinase_patterns[hexokinase#patterns#rgb#get_pattern()] = function('hexokinase#patterns#rgb#process')
+  elseif pat ==# 'rgba'
+    let g:Hexokinase_patterns[hexokinase#patterns#rgba#get_pattern()] = function('hexokinase#patterns#rgba#process')
+  endif
+endfor
+
 let g:Hexokinase_ft_patterns = get(g:, 'Hexokinase_ft_patterns', {})
 
 let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull'])
