@@ -150,11 +150,11 @@ let s:colours = {
       \ "yellowgreen": "#9acd32"
       \ }
 
-function! hexokinase#patterns#color_names#get_pattern() abort
+function! hexokinase#patterns#colour_names#get_pattern() abort
     return '\c\<\(' . join(keys(s:colours), '\|') . '\)\>'
 endfunction
 
-function! hexokinase#patterns#color_names#process(str) abort
+function! hexokinase#patterns#colour_names#process(str) abort
     let str_lcase = tolower(a:str)
     if has_key(s:colours, str_lcase)
         return s:colours[str_lcase]
