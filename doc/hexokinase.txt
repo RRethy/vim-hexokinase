@@ -112,6 +112,16 @@ Opt-in Patterns                                 *g:Hexokinase_optInPatterns*
                         \ 'rgb',
                         \ 'rgba'
                         \ ]
+<
+                Available values: >
+                  let g:Hexokinase_optInPatterns = [
+                        \ 'full_hex',
+                        \ 'triple_hex',
+                        \ 'rgb',
+                        \ 'rgba',
+                        \ 'colour_names'
+                        \ ]
+<
 
 
 CREATE HIGHLIGHTERS                                 *hexokinase-highlighters*

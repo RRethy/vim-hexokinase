@@ -31,6 +31,8 @@ for pat in g:Hexokinase_optInPatterns
     let g:Hexokinase_patterns[hexokinase#patterns#rgb#get_pattern()] = function('hexokinase#patterns#rgb#process')
   elseif pat ==# 'rgba'
     let g:Hexokinase_patterns[hexokinase#patterns#rgba#get_pattern()] = function('hexokinase#patterns#rgba#process')
+  elseif pat =~# 'colou\?r_names'
+    let g:Hexokinase_patterns[hexokinase#patterns#colour_names#get_pattern()] = function('hexokinase#patterns#colour_names#process')
   endif
 endfor
 

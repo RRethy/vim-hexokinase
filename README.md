@@ -1,6 +1,6 @@
 # vim-hexokinase
 
-(Neo)Vim plugin for displaying the colour of 6-digit hex codes, 3-digit hex codes, rgb, and rgba functions
+(Neo)Vim plugin for displaying the colour of 6-digit hex codes, 3-digit hex codes, rgb, and rgba functions, and optionally web colours
 
 > let g:Hexokinase_highlighters = ['virtual']
 
@@ -92,6 +92,9 @@ The following will customize which builtin patterns you want `vim-hexokinase` to
 ```vim
 " This is the default value
 let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba']
+
+" All available builtin patterns
+let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba', 'colour_names']
 ```
 
 For advanced customization, check the help docs for `hexokinase-highlighters` and `hexokinase-patterns`.
