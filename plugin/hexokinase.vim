@@ -25,7 +25,6 @@ let g:Hexokinase_patterns[hexokinase#patterns#full_hex#get_pattern()] = function
 let g:Hexokinase_patterns[hexokinase#patterns#triple_hex#get_pattern()] = function('hexokinase#patterns#triple_hex#process')
 let g:Hexokinase_patterns[hexokinase#patterns#rgb#get_pattern()] = function('hexokinase#patterns#rgb#process')
 let g:Hexokinase_patterns[hexokinase#patterns#rgba#get_pattern()] = function('hexokinase#patterns#rgba#process')
-let g:Hexokinase_patterns[hexokinase#patterns#color_names#get_pattern()] = function('hexokinase#patterns#color_names#process')
 let g:Hexokinase_ft_patterns = get(g:, 'Hexokinase_ft_patterns', {})
 
 let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull'])
