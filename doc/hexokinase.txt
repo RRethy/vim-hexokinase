@@ -207,4 +207,14 @@ process_pattern({match})                         *hexokinase-process_pattern*
 A more complete example can be found here:
 https://github.com/RRethy/vim-hexokinase/issues/16.
 
+
+FAQ                                                         *hexokinase-faq*
+===========================================================================
+
+Q: I'm seeing grey colours when I toggle vim-hexokinase
+
+A: You need `termguicolors` to be turned on. Verify `:set termguicolors?`
+outputs `1`.
+
+
 vim:tw=78:ts=8:ft=help:norl:

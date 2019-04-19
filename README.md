@@ -118,3 +118,9 @@ mkdir -p ~/.vim/pack/plugins/start
 cd ~/.vim/pack/plugins/start
 git clone https://github.com/RRethy/vim-hexokinase.git
 ```
+
+## FAQ
+
+> I'm seeing grey colours when I toggle vim-hexokinase
+
+You need `termguicolors` to be turned on. Verify `:set termguicolors?` outputs `1`. For more info, see https://github.com/RRethy/vim-hexokinase/issues/10.
