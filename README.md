@@ -123,4 +123,4 @@ git clone https://github.com/RRethy/vim-hexokinase.git
 
 > I'm seeing grey colours when I toggle vim-hexokinase
 
-You need `termguicolors` to be turned on. Verify `:set termguicolors?` outputs `1`. For more info, see https://github.com/RRethy/vim-hexokinase/issues/10.
+You need `termguicolors` to be turned on. Verify `:set termguicolors?` outputs `termguicolors`. For more info, see https://github.com/RRethy/vim-hexokinase/issues/10.
