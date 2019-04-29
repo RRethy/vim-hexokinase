@@ -49,9 +49,6 @@ fun! hexokinase#scrape_colours() abort
         endif
       endfor
 
-      " The colour that got matched was invalid so avoid matching it and
-      " continue
-      " This could happen for something like rgb(500,500,500)
       if processed
         call add(colorsInfo, [colourMatch, start, end])
       endif
