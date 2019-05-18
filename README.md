@@ -119,6 +119,10 @@ cd ~/.vim/pack/plugins/start
 git clone https://github.com/RRethy/vim-hexokinase.git
 ```
 
+## TODO
+
+Add [hexokinase](https://github.com/RRethy/hexokinase) integration for asynchronous parsing.
+
 ## FAQ
 
 > I'm seeing grey colours when I toggle vim-hexokinase
