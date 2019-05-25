@@ -30,7 +30,7 @@ fun! hexokinase#v2#setup() abort
    if has('autocmd')
       augroup hexokinase_autocmds
          autocmd!
-			exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call hexokinase#v2#scraper#on()'
+			exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call s:on_refresh_event()'
          " if !empty(g:Hexokinase_ftAutoload)
          "    exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#on_autoload_ft_set()'
          " endif
@@ -38,8 +38,9 @@ fun! hexokinase#v2#setup() abort
    endif
 
    fun! s:on_refresh_event() abort
-      if exists('b:hexokinase_scraper_on') && b:hexokinase_scraper_on
-         HexokinaseRefresh
+		let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
+		if b:hexokinase_is_on
+         call hexokinase#v2#scraper#on()
       endif
    endf
 endf
