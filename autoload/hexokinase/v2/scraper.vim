@@ -19,11 +19,19 @@ fun! hexokinase#v2#scraper#on() abort
       let opts = {
                \ 'tmpname': tmpname,
                \ 'on_stdout': function('s:on_stdout'),
+					\ 'on_stderr': function('s:on_stderr'),
                \ 'on_exit': function('s:on_exit'),
                \ 'bufnr': bufnr('%'),
                \ 'colours': []
                \ }
-      let b:hexokinase_job_id = jobstart(printf('hexokinase -r -simplified -files=%s', tmpname), opts)
+		let cmd = printf('hexokinase -r -simplified -files=%s', tmpname)
+		if !empty(g:Hexokinase_optOutPatterns)
+			let cmd .= ' -dp='.g:Hexokinase_optOutPatterns
+		endif
+		if !empty(g:Hexokinase_palettes)
+			let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
+		endif
+      let b:hexokinase_job_id = jobstart(cmd, opts)
    endif
 endf
 
@@ -60,6 +68,12 @@ fun! s:on_stdout(id, data, event) abort dict
          call add(self.colours, colour)
       endif
    endfor
+endf
+
+fun! s:on_stderr(id, data, event) abort dict
+	if get(g:, 'Hexokinase_logging', 0)
+		echohl Error | echom string(a:data) | echohl None
+	endif
 endf
 
 fun! s:on_exit(id, status, event) abort dict

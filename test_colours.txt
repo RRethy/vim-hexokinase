@@ -1,16 +1,28 @@
 This file lists various colors, for testing the supported color syntax
 
-#000000   #333333   #666666   #999999   #cccccc   #ffffff
-#000000ff #333333ff #666666ff #999999ff #ccccccff #ffffffff
-#00000088 #33333388 #66666688 #99999988 #cccccc88 #ffffff88
+#000000   #333333   #666666  
+#999999   #cccccc   #ffffff
+#000000ff #333333ff #666666ff
+#999999ff #ccccccff #ffffffff
+#00000088 #33333388 #66666688
+#99999988 #cccccc88 #ffffff88
 
-#000    #333    #666    #999    #ccc    #fff
-#000   #333f   #666f   #999f   #cccf   #ffff
-#000c   #333c   #666c   #999c   #cccc   #fffc
-#0009   #3339   #6669   #9999   #ccc9   #fff9
-#0006   #3336   #6666   #9996   #ccc6   #fff6
-#0003   #3333   #6663   #9993   #ccc3   #fff3
-#0000   #3330   #6660   #9990   #ccc0   #fff0
+foo3bar3baz3
+
+#000    #333    #666 
+  #999    #ccc    #fff
+#000   #333f   #666f 
+ #999f   #cccf   #ffff
+#000c   #333c   #666c
+  #999c   #cccc   #fffc
+#0009   #3339   #6669
+  #9999   #ccc9   #fff9
+#0006   #3336   #6666
+  #9996   #ccc6   #fff6
+#0003   #3333   #6663
+  #9993   #ccc3   #fff3
+#0000   #3330   #6660
+  #9990   #ccc0   #fff0
 
 #00f#08f#0ff#0f8#0f0#8f0#ff0#f80#f00#f08#f0f#80f
 
