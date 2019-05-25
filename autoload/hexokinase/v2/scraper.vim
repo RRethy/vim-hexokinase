@@ -1,4 +1,4 @@
-fun! hexokinase#v2#toggle() abort
+fun! hexokinase#v2#scraper#toggle() abort
    let b:hexokinase_is_scraping = get(b:, 'hexokinase_is_scraping', 0)
    if b:hexokinase_is_scraping
       return
@@ -6,19 +6,20 @@ fun! hexokinase#v2#toggle() abort
 
    let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
    if b:hexokinase_is_on
-      call hexokinase#v2#off()
+      call hexokinase#v2#scraper#off()
    else
-      call hexokinase#v2#on()
+      call hexokinase#v2#scraper#on()
    endif
 endf
 
-fun! hexokinase#v2#on() abort
+fun! hexokinase#v2#scraper#on() abort
    let b:hexokinase_is_scraping = 1
+	let b:hexokinase_is_on = 1
    let tmpname = s:tmpname()
-   let success = writefile(getbufline(bufnr('%'), 1, '$'), tmpname)
-   if success
-      let b:hexokinase_is_scraping = 0
-      return
+   let fail = writefile(getbufline(bufnr('%'), 1, '$'), tmpname)
+   if fail
+		let b:hexokinase_is_scraping = 0
+		let b:hexokinase_is_on = 0
    else
       let opts = {
                \ 'tmpname': tmpname,
@@ -29,23 +30,34 @@ fun! hexokinase#v2#on() abort
                \ 'colours': []
                \ }
       " TODO do we need the returned job id
-      call jobstart(printf('hexokinase -r -simplified -files%s', tmpname), opts)
+      call jobstart(printf('hexokinase -r -simplified -files=%s', tmpname), opts)
    endif
 endf
 
-fun! hexokinase#v2#off() abort
+fun! hexokinase#v2#scraper#off() abort
 endf
 
-fun! hexokinase#v2#refresh() abort
+fun! hexokinase#v2#scraper#refresh() abort
 endf
 
-fun! s:tear_down() abort
+fun! s:tear_down(bufnr) abort
+	for F in g:Hexokinase_tearDownCallbacks
+      call F(a:bufnr)
+   endfor
+	" TODO cancel job
 endf
 
 fun! s:on_stdout(id, data, event) abort dict
    for line in a:data
-      let colour = split(res, ':')
-      if len(colour) == 4
+		echom line
+      let parts = split(line, ':')
+      if len(parts) == 4
+			let colour = {
+						\ 'lnum': parts[1],
+						\ 'start': split(parts[2], '-')[0],
+						\ 'end': split(parts[2], '-')[1],
+						\ 'hex': parts[3]
+						\ }
          call add(self.colours, colour)
       endif
    endfor
@@ -56,15 +68,13 @@ fun! s:on_exit(id, status, event) abort dict
    if a:status
       return
    endif
-   call s:tear_down()
-   for colour in self.colourss
-      let lnum = str2nr(colour[1])
-      let hex = colour[3]
-      let [start, end] = split(colour[2], '-')
-      let hl_name = 'v2hexokinaseHighlight'.strpart(hex, 1)
-      exe 'hi '.hl_name.' guifg='.hex
+	let b:hexokinase_is_scraping = 0
+   call s:tear_down(self.bufnr)
+   for colour in self.colours
+      let hl_name = 'v2hexokinaseHighlight'.strpart(colour.hex, 1)
+      exe 'hi '.hl_name.' guifg='.colour.hex
       for F in g:Hexokinase_highlightCallbacks
-         call F(self.bufnr, lnum, hex, hl_name, start, end)
+         call F(self.bufnr, colour.lnum, colour.hex, hl_name, colour.start, colour.end)
       endfor
    endfor
 endf

@@ -10,20 +10,20 @@ fun! hexokinase#v2#setup() abort
    let g:Hexokinase_virtualText = get(g:, 'Hexokinase_virtualText', '■')
    let g:Hexokinase_signIcon = get(g:, 'Hexokinase_signIcon', '■')
 
-   " let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull'])
-   " let g:Hexokinase_highlightCallbacks = get(g:, 'Hexokinase_highlightCallbacks', [])
-   " let g:Hexokinase_tearDownCallbacks = get(g:, 'Hexokinase_tearDownCallbacks', [])
-   " for mode in g:Hexokinase_highlighters
-   "    if index(g:Hexokinase_builtinHighlighters, mode) >= 0
-   "       call add(g:Hexokinase_highlightCallbacks, function('hexokinase#highlighters#' . mode . '#highlightv2'))
-   "       call add(g:Hexokinase_tearDownCallbacks, function('hexokinase#highlighters#' . mode . '#tearDownv2'))
-   "    endif
-   " endfor
+   let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull'])
+   let g:Hexokinase_highlightCallbacks = get(g:, 'Hexokinase_highlightCallbacks', [])
+   let g:Hexokinase_tearDownCallbacks = get(g:, 'Hexokinase_tearDownCallbacks', [])
+   for mode in g:Hexokinase_highlighters
+      if index(g:Hexokinase_builtinHighlighters, mode) >= 0
+         call add(g:Hexokinase_highlightCallbacks, function('hexokinase#highlighters#' . mode . '#highlightv2'))
+         call add(g:Hexokinase_tearDownCallbacks, function('hexokinase#highlighters#' . mode . '#tearDownv2'))
+      endif
+   endfor
 
-   command! HexokinaseToggle call hexokinase#v2#toggle()
-   command! HexokinaseRefresh call hexokinase#v2#refresh()
-   command! HexokinaseTurnOn call hexokinase#v2#on()
-   command! HexokinaseTurnOff call hexokinase#v2#off()
+   command! HexokinaseToggle call hexokinase#v2#scraper#toggle()
+   command! HexokinaseRefresh call hexokinase#v2#scraper#refresh()
+   command! HexokinaseTurnOn call hexokinase#v2#scraper#on()
+   command! HexokinaseTurnOff call hexokinase#v2#scraper#off()
 
    let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['TextChanged', 'InsertLeave'])
    let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', ['text', 'css'])
