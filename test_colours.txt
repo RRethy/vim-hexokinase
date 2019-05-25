@@ -9,7 +9,7 @@ This file lists various colors, for testing the supported color syntax
 
 foo3bar3baz3
 
-#000    #333    #666 
+#fff    #333    #666 
   #999    #ccc    #fff
 #000   #333f   #666f 
  #999f   #cccf   #ffff
