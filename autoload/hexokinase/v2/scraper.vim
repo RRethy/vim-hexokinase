@@ -1,9 +1,4 @@
 fun! hexokinase#v2#scraper#toggle() abort
-   let b:hexokinase_is_scraping = get(b:, 'hexokinase_is_scraping', 0)
-   if b:hexokinase_is_scraping
-      return
-   endif
-
    let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
    if b:hexokinase_is_on
       call hexokinase#v2#scraper#off()
@@ -13,43 +8,47 @@ fun! hexokinase#v2#scraper#toggle() abort
 endf
 
 fun! hexokinase#v2#scraper#on() abort
-   let b:hexokinase_is_scraping = 1
+	call s:cancel_cur_job()
+
 	let b:hexokinase_is_on = 1
    let tmpname = s:tmpname()
    let fail = writefile(getbufline(bufnr('%'), 1, '$'), tmpname)
    if fail
-		let b:hexokinase_is_scraping = 0
 		let b:hexokinase_is_on = 0
    else
       let opts = {
                \ 'tmpname': tmpname,
                \ 'on_stdout': function('s:on_stdout'),
                \ 'on_exit': function('s:on_exit'),
-               \ 'on_stderr': function('s:on_stderr'),
                \ 'bufnr': bufnr('%'),
                \ 'colours': []
                \ }
-      " TODO do we need the returned job id
-      call jobstart(printf('hexokinase -r -simplified -files=%s', tmpname), opts)
+      let b:hexokinase_job_id = jobstart(printf('hexokinase -r -simplified -files=%s', tmpname), opts)
    endif
 endf
 
 fun! hexokinase#v2#scraper#off() abort
+	let b:hexokinase_is_on = 0
+	call s:cancel_cur_job()
+	call s:clear_hl(bufnr('%'))
 endf
 
-fun! hexokinase#v2#scraper#refresh() abort
-endf
-
-fun! s:tear_down(bufnr) abort
+fun! s:clear_hl(bufnr) abort
 	for F in g:Hexokinase_tearDownCallbacks
-      call F(a:bufnr)
-   endfor
-	" TODO cancel job
+		call F(a:bufnr)
+	endfor
+endf
+
+fun! s:cancel_cur_job() abort
+	let b:hexokinase_job_id = get(b:, 'hexokinase_job_id', -1)
+	try
+		call chanclose(b:hexokinase_job_id)
+	catch /E900/
+	endtry
 endf
 
 fun! s:on_stdout(id, data, event) abort dict
    for line in a:data
-		echom line
       let parts = split(line, ':')
       if len(parts) == 4
 			let colour = {
@@ -68,8 +67,7 @@ fun! s:on_exit(id, status, event) abort dict
    if a:status
       return
    endif
-	let b:hexokinase_is_scraping = 0
-   call s:tear_down(self.bufnr)
+	call s:clear_hl(bufnr('%'))
    for colour in self.colours
       let hl_name = 'v2hexokinaseHighlight'.strpart(colour.hex, 1)
       exe 'hi '.hl_name.' guifg='.colour.hex
@@ -77,9 +75,6 @@ fun! s:on_exit(id, status, event) abort dict
          call F(self.bufnr, colour.lnum, colour.hex, hl_name, colour.start, colour.end)
       endfor
    endfor
-endf
-
-fun! s:on_stderr(id, data, event) abort dict
 endf
 
 fun! s:tmpname() abort

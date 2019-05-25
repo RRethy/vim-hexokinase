@@ -21,19 +21,16 @@ fun! hexokinase#v2#setup() abort
    endfor
 
    command! HexokinaseToggle call hexokinase#v2#scraper#toggle()
-   command! HexokinaseRefresh call hexokinase#v2#scraper#refresh()
    command! HexokinaseTurnOn call hexokinase#v2#scraper#on()
    command! HexokinaseTurnOff call hexokinase#v2#scraper#off()
 
    let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['TextChanged', 'InsertLeave'])
-   let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', ['text', 'css'])
+   let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', ['text', 'css', 'html'])
 
    if has('autocmd')
       augroup hexokinase_autocmds
          autocmd!
-         for event in g:Hexokinase_refreshEvents
-            exe 'autocmd '.event.' * call s:on_refresh_event()'
-         endfor
+			exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call hexokinase#v2#scraper#on()'
          " if !empty(g:Hexokinase_ftAutoload)
          "    exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#on_autoload_ft_set()'
          " endif
@@ -44,9 +41,5 @@ fun! hexokinase#v2#setup() abort
       if exists('b:hexokinase_scraper_on') && b:hexokinase_scraper_on
          HexokinaseRefresh
       endif
-   endf
-
-   fun! s:toggle() abort
-      HexokinaseToggle
    endf
 endf
