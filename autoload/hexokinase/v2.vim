@@ -31,9 +31,9 @@ fun! hexokinase#v2#setup() abort
       augroup hexokinase_autocmds
          autocmd!
 			exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call s:on_refresh_event()'
-         " if !empty(g:Hexokinase_ftAutoload)
-         "    exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#on_autoload_ft_set()'
-         " endif
+         if !empty(g:Hexokinase_ftAutoload)
+            exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#v2#scraper#on()'
+         endif
       augroup END
    endif
 

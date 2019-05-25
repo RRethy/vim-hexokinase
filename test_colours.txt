@@ -5,7 +5,7 @@ This file lists various colors, for testing the supported color syntax
 #00000088 #33333388 #66666688 #99999988 #cccccc88 #ffffff88
 
 #000    #333    #666    #999    #ccc    #fff
-#ffff   #333f   #666f   #999f   #cccf   #ffff
+#000   #333f   #666f   #999f   #cccf   #ffff
 #000c   #333c   #666c   #999c   #cccc   #fffc
 #0009   #3339   #6669   #9999   #ccc9   #fff9
 #0006   #3336   #6666   #9996   #ccc6   #fff6
@@ -16,7 +16,7 @@ This file lists various colors, for testing the supported color syntax
 
 #f00f #f00c #f009 #f006 #f003 #f000
 
-rgba(255,0,0,1.0)
+rgba(0,0,0,1.0)
  rgba(100%,0%,0%,1.0)  #f00f  #0f0f  #00ff #ff00  #f0f0  #f00f
 rgba(255,0,0,0.5)
  rgba(100%,0%,0%,0.5)  #f008  #0f08  #00f8 #8f00  #80f0  #800f
