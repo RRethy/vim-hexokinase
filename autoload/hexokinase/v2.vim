@@ -29,17 +29,21 @@ fun! hexokinase#v2#setup() abort
 
    let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['TextChanged', 'InsertLeave'])
    let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', ['text', 'css', 'html'])
+	let g:Hexokinase_disabledPatterns = get(g:, 'Hexokinase_disabledPatterns', ['names'])
 
-   if has('autocmd')
-      augroup hexokinase_autocmds
-         autocmd!
+	if has('autocmd')
+		augroup hexokinase_autocmds
+			autocmd!
 			exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call s:on_refresh_event()'
-         if !empty(g:Hexokinase_ftAutoload)
-            exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#v2#scraper#on()'
-         endif
-			autocmd BufRead,BufWrite * call s:check_colours()
-      augroup END
-   endif
+			if get(g:, 'Hexokinase_autoenable', 1)
+				autocmd BufRead,BufWrite * call s:check_colours()
+			else
+				if !empty(g:Hexokinase_ftAutoload)
+					exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#v2#scraper#on()'
+				endif
+			endif
+		augroup END
+	endif
 
 	fun! s:check_colours() abort
 		let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)

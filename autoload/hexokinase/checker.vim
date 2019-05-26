@@ -23,7 +23,9 @@ endf
 fun! s:on_exit(id, status, event) abort dict
    call delete(self.tmpname)
    if !a:status
-		call hexokinase#v2#scraper#on()
+		if bufnr('%') == self.bufnr
+			call hexokinase#v2#scraper#on()
+		endif
    endif
 endf
 

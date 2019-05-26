@@ -6,6 +6,7 @@ This file lists various colors, for testing the supported color syntax
 #999999ff #ccccccff #ffffffff
 #00000088 #33333388 #66666688
 #99999988 #cccccc88 #ffffff88
+red
 
 foo3bar3baz3
 
