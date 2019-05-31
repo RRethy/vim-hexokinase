@@ -42,6 +42,7 @@ fun! hexokinase#v2#setup() abort
 					exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#v2#scraper#on()'
 				endif
 			endif
+			autocmd ColorScheme * call s:on_refresh_event()
 		augroup END
 	endif
 
