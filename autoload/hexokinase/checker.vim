@@ -9,7 +9,7 @@ fun! hexokinase#checker#check() abort
                \ 'on_exit': function('s:on_exit'),
                \ 'bufnr': bufnr('%'),
                \ }
-		let cmd = printf('hexokinase -check=%s -dp=names', tmpname)
+		let cmd = printf('./hexokinase/hexokinase -check=%s -dp=names', tmpname)
 		if !empty(g:Hexokinase_optOutPatterns)
 			let cmd .= ' -dp='.g:Hexokinase_optOutPatterns
 		endif

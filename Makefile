@@ -1,2 +1,2 @@
 parser:
-	git submodule update && cd lib/hexokinase/ && go build
+	git init && git submodule update && cd hexokinase/ && go build
