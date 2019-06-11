@@ -3,7 +3,7 @@
 " Vertion 0.1
 
 if exists('g:loaded_hexokinase')
-   finish
+    finish
 endif
 
 let g:loaded_hexokinase = 1
@@ -11,8 +11,8 @@ let g:loaded_hexokinase = 1
 let g:Hexokinase_v2 = get(g:, 'Hexokinase_v2', executable('./hexokinase/hexokinase'))
 
 if g:Hexokinase_v2
-   call hexokinase#v2#setup()
+    call hexokinase#v2#setup()
 else
-   call hexokinase#v1#setup()
+    call hexokinase#v1#setup()
 endif
 
