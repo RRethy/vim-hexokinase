@@ -47,10 +47,9 @@ fun! hexokinase#v2#setup() abort
 	endif
 
 	fun! s:check_colours() abort
-		let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
-		if !b:hexokinase_is_on
-			call hexokinase#checker#check()
-      endif
+        if !exists('b:hexokinase_is_on')
+            call hexokinase#checker#check()
+        endif
 	endf
 
    fun! s:on_refresh_event() abort
