@@ -1,7 +1,7 @@
+.PHONY: hexokinase
 hexokinase:
 	git init && git submodule update && cd hexokinase/ && go build
 
-.PHONE: clean
-
+.PHONY: clean
 clean:
 	rm -rf hexokinase/
