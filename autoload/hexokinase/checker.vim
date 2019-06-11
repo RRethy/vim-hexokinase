@@ -1,7 +1,7 @@
 fun! hexokinase#checker#check() abort
 	call s:cancel_cur_job()
 
-   let tmpname = s:tmpname()
+   let tmpname = hexokinase#utils#tmpname()
    let fail = writefile(getbufline(bufnr('%'), 1, '$'), tmpname)
    if !fail
       let opts = {
@@ -35,23 +35,4 @@ fun! s:cancel_cur_job() abort
 		call chanclose(b:hexokinase_checker_job_id)
 	catch /E900/
 	endtry
-endf
-
-fun! s:tmpname() abort
-   let l:clear_tempdir = 0
-
-   if exists('$TMPDIR') && empty($TMPDIR)
-      let l:clear_tempdir = 1
-      let $TMPDIR = '/tmp'
-   endif
-
-   try
-      let l:name = tempname()
-   finally
-      if l:clear_tempdir
-         let $TMPDIR = ''
-      endif
-   endtry
-
-   return l:name
 endf

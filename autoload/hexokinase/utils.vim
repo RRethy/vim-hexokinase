@@ -74,3 +74,22 @@ fun! hexokinase#utils#apply_alpha_to_rgb(primary_rgb, alpha) abort
   let new_b = float2nr(bg_b + ((old_b - bg_b) * a:alpha))
   return [new_r, new_g, new_b]
 endf
+
+fun! hexokinase#utils#tmpname() abort
+   let l:clear_tempdir = 0
+
+   if exists('$TMPDIR') && empty($TMPDIR)
+      let l:clear_tempdir = 1
+      let $TMPDIR = '/tmp'
+   endif
+
+   try
+      let l:name = tempname()
+   finally
+      if l:clear_tempdir
+         let $TMPDIR = ''
+      endif
+   endtry
+
+   return l:name
+endf

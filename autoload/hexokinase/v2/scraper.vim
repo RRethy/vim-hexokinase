@@ -11,7 +11,7 @@ fun! hexokinase#v2#scraper#on() abort
 	call s:cancel_cur_job()
 
 	let b:hexokinase_is_on = 1
-   let tmpname = s:tmpname()
+   let tmpname = hexokinase#utils#tmpname()
    let fail = writefile(getbufline(bufnr('%'), 1, '$'), tmpname)
    if fail
 		let b:hexokinase_is_on = 0
@@ -92,23 +92,4 @@ fun! s:on_exit(id, status, event) abort dict
          call F(self.bufnr, colour.lnum, colour.hex, hl_name, colour.start, colour.end)
       endfor
    endfor
-endf
-
-fun! s:tmpname() abort
-   let l:clear_tempdir = 0
-
-   if exists('$TMPDIR') && empty($TMPDIR)
-      let l:clear_tempdir = 1
-      let $TMPDIR = '/tmp'
-   endif
-
-   try
-      let l:name = tempname()
-   finally
-      if l:clear_tempdir
-         let $TMPDIR = ''
-      endif
-   endtry
-
-   return l:name
 endf
