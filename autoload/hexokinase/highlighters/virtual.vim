@@ -27,5 +27,5 @@ fun! hexokinase#highlighters#virtual#highlight(lnum, hex, hl_name, start, end) a
 endf
 
 fun! hexokinase#highlighters#virtual#tearDown() abort
-	call hexokinase#highlighters#virtual#highlightv2(bufnr('%'))
+	call hexokinase#highlighters#virtual#tearDownv2(bufnr('%'))
 endf
