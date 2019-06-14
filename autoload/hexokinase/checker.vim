@@ -6,13 +6,11 @@ fun! hexokinase#checker#check() abort
     if !fail
         let opts = {
                     \ 'tmpname': tmpname,
-                    \ 'on_exit': function('s:on_exit'),
+                     \ 'on_exit': function('s:on_exit'),
                     \ 'bufnr': bufnr('%'),
                     \ }
         let cmd = printf('./hexokinase/hexokinase -check=%s -dp=names', tmpname)
-        if !empty(g:Hexokinase_optOutPatterns)
-            let cmd .= ' -dp='.g:Hexokinase_optOutPatterns
-        endif
+        let cmd .= hexokinase#utils#getPatModifications()
         if !empty(g:Hexokinase_palettes)
             let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
         endif

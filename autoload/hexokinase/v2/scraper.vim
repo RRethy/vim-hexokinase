@@ -25,43 +25,7 @@ fun! hexokinase#v2#scraper#on() abort
                     \ 'colours': []
                     \ }
         let cmd = printf('./hexokinase/hexokinase -r -simplified -dp=names -files=%s', tmpname)
-
-        if has_key(g:Hexokinase_ftOptOutPatterns, &filetype)
-            let dp = g:Hexokinase_ftOptOutPatterns[&filetype]
-            if type(dp) == 1
-                let cmd .= ' -dp='.substitute(dp, '\s', '', 'g')
-            elseif type(dp) == 3
-                let cmd .= ' -dp='.join(dp, ',')
-            else
-                echohl Error | echom printf('ERROR: g:Hexokinase_ftOptOutPatterns[%s] must be a string or a list', &filetype) | echohl None
-            endif
-        elseif has_key(g:Hexokinase_ftOptInPatterns, &filetype)
-            let ep = g:Hexokinase_ftOptInPatterns[&filetype]
-            if type(ep) == 1
-                let cmd .= ' -ep='.substitute(ep, '\s', '', 'g')
-            elseif type(ep) == 3
-                let cmd .= ' -ep='.join(ep, ',')
-            else
-                echohl Error | echom printf('ERROR: g:Hexokinase_ftOptInPatterns[%s] must be a string or a list', &filetype) | echohl None
-            endif
-        elseif !empty(g:Hexokinase_optOutPatterns)
-            if type(g:Hexokinase_optOutPatterns) == 1
-                let cmd .= ' -dp='.substitute(g:Hexokinase_optOutPatterns, '\s', '', 'g')
-            elseif type(g:Hexokinase_optOutPatterns) == 3
-                let cmd .= ' -dp='.join(g:Hexokinase_optOutPatterns, ',')
-            else
-                echohl Error | echom 'ERROR: g:Hexokinase_optOutPatterns must be a string or a list' | echohl None
-            endif
-        elseif !empty(g:Hexokinase_optInPatterns)
-            if type(g:Hexokinase_optInPatterns) == 1
-                let cmd .= ' -ep='.substitute(g:Hexokinase_optInPatterns, '\s', '', 'g')
-            elseif type(g:Hexokinase_optInPatterns) == 3
-                let cmd .= ' -ep='.join(g:Hexokinase_optInPatterns, ',')
-            else
-                echohl Error | echom 'ERROR: g:Hexokinase_optInPatterns must be a string or a list' | echohl None
-            endif
-        endif
-
+        let cmd .= hexokinase#utils#getPatModifications()
         if !empty(g:Hexokinase_palettes)
             let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
         endif
