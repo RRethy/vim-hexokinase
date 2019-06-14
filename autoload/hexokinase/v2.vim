@@ -13,7 +13,7 @@ fun! hexokinase#v2#setup() abort
     let g:Hexokinase_optOutPatterns = get(g:, 'Hexokinase_optOutPatterns', '')
     let g:Hexokinase_optInPatterns = get(g:, 'Hexokinase_optInPatterns', [])
     let g:Hexokinase_ftOptOutPatterns = get(g:, 'Hexokinase_ftOptOutPatterns', {})
-    let g:Hexokinase_ftOptInPatterns = get(g:, 'Hexokinase_ftOptOutPatterns', {})
+    let g:Hexokinase_ftOptInPatterns = get(g:, 'Hexokinase_ftOptInPatterns', {})
     let g:Hexokinase_palettes = get(g:, 'Hexokinase_palettes', [])
 
     let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull'])
