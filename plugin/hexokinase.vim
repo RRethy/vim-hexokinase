@@ -15,4 +15,3 @@ if g:Hexokinase_v2
 else
     call hexokinase#v1#setup()
 endif
-
