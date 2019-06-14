@@ -39,7 +39,7 @@ fun! hexokinase#v2#setup() abort
             autocmd!
             exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call s:on_refresh_event()'
             if get(g:, 'Hexokinase_autoenable', 1)
-                autocmd BufAdd,BufWrite * call s:check_colours()
+                autocmd BufRead,BufWrite * call s:check_colours()
             else
                 if !empty(g:Hexokinase_ftAutoload)
                     exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#v2#scraper#on()'
