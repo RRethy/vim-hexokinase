@@ -5,7 +5,7 @@ fun! hexokinase#highlighters#background#highlightv2(bufnr, lnum, hex, hl_name, s
 
     let b:bg_match_ids = get(b:, 'bg_match_ids', [])
     let bg_hl_name = 'background'.a:hl_name
-    exe 'hi '.bg_hl_name.' guibg='.a:hex.' guifg='.a:hex
+    exe 'hi '.bg_hl_name.' guibg='.a:hex.' guifg=NONE'
     if getline(a:lnum)[a:end - 1] ==# ')'
         let [_, _, first_char] = matchstrpos(getline(a:lnum), '(', a:start)
         call add(b:bg_match_ids, matchaddpos(bg_hl_name, [[a:lnum, first_char, 1], [a:lnum, a:end, 1]]))

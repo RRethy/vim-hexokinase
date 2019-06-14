@@ -16,7 +16,7 @@ fun! hexokinase#v2#setup() abort
     let g:Hexokinase_ftOptInPatterns = get(g:, 'Hexokinase_ftOptInPatterns', {})
     let g:Hexokinase_palettes = get(g:, 'Hexokinase_palettes', [])
 
-    let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull'])
+    let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', ['virtual', 'sign_column', 'background', 'backgroundfull', 'foreground', 'foregroundfull'])
     let g:Hexokinase_highlightCallbacks = get(g:, 'Hexokinase_highlightCallbacks', [])
     let g:Hexokinase_tearDownCallbacks = get(g:, 'Hexokinase_tearDownCallbacks', [])
     for mode in g:Hexokinase_highlighters
