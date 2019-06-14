@@ -24,15 +24,12 @@ fun! hexokinase#v2#scraper#on() abort
                     \ 'bufnr': bufnr('%'),
                     \ 'colours': []
                     \ }
-        let cmd = printf('./hexokinase/hexokinase -r -simplified -dp=names -files=%s', tmpname)
+        let cmd = printf('./hexokinase/hexokinase -r -simplified -files=%s', tmpname)
         let cmd .= hexokinase#utils#getPatModifications()
         if !empty(g:Hexokinase_palettes)
             let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
         endif
 
-        if !empty(g:Hexokinase_disabledPatterns)
-            let cmd .= ' -dp='.join(g:Hexokinase_disabledPatterns, ',')
-        endif
         let b:hexokinase_job_id = jobstart(cmd, opts)
     endif
 endf

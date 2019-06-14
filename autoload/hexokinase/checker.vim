@@ -9,7 +9,7 @@ fun! hexokinase#checker#check() abort
                      \ 'on_exit': function('s:on_exit'),
                     \ 'bufnr': bufnr('%'),
                     \ }
-        let cmd = printf('./hexokinase/hexokinase -check=%s -dp=names', tmpname)
+        let cmd = printf('./hexokinase/hexokinase -check=%s ', tmpname)
         let cmd .= hexokinase#utils#getPatModifications()
         if !empty(g:Hexokinase_palettes)
             let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')

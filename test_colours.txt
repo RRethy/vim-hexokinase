@@ -4,13 +4,12 @@ blue
 
 #fff
 
-#000000   #333333   #666666  
+#000000   #333333   #666666
 #999999   #cccccc   #ffffff
 #000000ff #333333ff #666666ff
 #999999ff #ccccccff #ffffffff
 #00000088 #33333388 #66666688
 #99999988 #cccccc88 #ffffff88
-red
 
 foo3bar3baz3
 
