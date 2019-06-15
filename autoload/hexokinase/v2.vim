@@ -32,7 +32,6 @@ fun! hexokinase#v2#setup() abort
 
     let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['TextChanged', 'InsertLeave'])
     let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', ['text', 'css', 'html'])
-    let g:Hexokinase_disabledPatterns = get(g:, 'Hexokinase_disabledPatterns', ['names', 'triplehex'])
 
     if has('autocmd')
         augroup hexokinase_autocmds

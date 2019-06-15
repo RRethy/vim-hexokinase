@@ -8,7 +8,8 @@ endif
 
 let g:loaded_hexokinase = 1
 
-let g:Hexokinase_v2 = get(g:, 'Hexokinase_v2', executable('./hexokinase/hexokinase'))
+let g:Hexokinase_executable_path = expand('<sfile>:h:h').'/hexokinase/hexokinase'
+let g:Hexokinase_v2 = get(g:, 'Hexokinase_v2', executable(g:Hexokinase_executable_path))
 
 if g:Hexokinase_v2
     call hexokinase#v2#setup()
