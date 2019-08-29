@@ -1,16 +1,18 @@
-*hexokinase-v1.txt*  (Neo)Vim plugin for displaying the colour of hex codes,
+*deprecated-hexokinase-v1.txt*  (Neo)Vim plugin for displaying the colour of hex codes,
                    rgb, and rgba
 
 Author:  Adam P. Regasz-Rethy (RRethy) <rethy.spud@gmail.com>
 License: Same terms as Vim itself (see |license|)
 
-INTRODUCTION                                                     *hexokinase*
+INTRODUCTION                                                     *deprecated-hexokinase*
 ===========================================================================
 
 This documentation is for v1 of vim-hexokinase. To use v1, add the following
 to your .vimrc:
 >
     let Hexokinase_v2 = 0
+
+Everything will work as it did previously, although, v1 has been deprecated.
 
 This plugin will display the colour of hex codes (both 6 and 3 digit), and
 rgb/rgba functions.
@@ -27,7 +29,7 @@ see |hexokinase-highlighters|.
 
 Note |'termguicolors'| must be turned on and your terminal must support it.
 
-COMMANDS                                                *hexokinase-commands*
+COMMANDS                                                *deprecated-hexokinase-commands*
 ===========================================================================
 
  ----------------------+-------------------------------------------------
@@ -38,10 +40,10 @@ COMMANDS                                                *hexokinase-commands*
  ----------------------+-------------------------------------------------
 
 
-CONFIGURATION                                      *hexokinase-configuration*
+CONFIGURATION                                      deprecated-*hexokinase-configuration*
 ===========================================================================
 
-Highlighters                                      *g:Hexokinase_highlighters*
+Highlighters                                      *deprecated-g:Hexokinase_highlighters*
 
                 Type: |List| of |Strings|
                 How to display the colour.
@@ -59,7 +61,7 @@ Highlighters                                      *g:Hexokinase_highlighters*
                   \   'foregroundfull'
                   \ ]
 
-Virtual text                                      *g:Hexokinase_virtualText*
+Virtual text                                      *deprecated-g:Hexokinase_virtualText*
 
                 Type: |String|
                 Coloured Virtual Text to display
@@ -67,7 +69,7 @@ Virtual text                                      *g:Hexokinase_virtualText*
                 Default value: >
                   let g:Hexokinase_virtualText = '■'
 
-Sign Column Icon                                     *g:Hexokinase_signIcon*
+Sign Column Icon                                     *deprecated-g:Hexokinase_signIcon*
 
                 Type: |String|
                 Coloured character to display in the |'signcolumn'|
@@ -75,7 +77,7 @@ Sign Column Icon                                     *g:Hexokinase_signIcon*
                 Default value: >
                   let g:Hexokinase_signIcon = '■'
 
-Refresh Events                                  *g:Hexokinase_refreshEvents*
+Refresh Events                                  *deprecated-g:Hexokinase_refreshEvents*
 
                 Type: |List| of |String|
                 Which |autocmd| events to refresh the colouring on.
@@ -88,7 +90,7 @@ Refresh Events                                  *g:Hexokinase_refreshEvents*
                 Default value: >
                   let g:Hexokinase_refreshEvents = ['BufWritePost']
 
-Auto Enabled FileTypes                             *g:Hexokinase_ftAutoload*
+Auto Enabled FileTypes                             *deprecated-g:Hexokinase_ftAutoload*
 
                 Type: |List| of |String|
                 Which |filetype| to automatically turn on the colouring
@@ -96,7 +98,7 @@ Auto Enabled FileTypes                             *g:Hexokinase_ftAutoload*
                 Default value: >
                   let g:Hexokinase_ftAutoload = []
 
-Silence Hexokinase                                     *g:Hexokinase_silent*
+Silence Hexokinase                                     *deprecated-g:Hexokinase_silent*
 
                 Type: 0 or 1
                 Whether or not to echo a message when turning on/off the
@@ -105,7 +107,7 @@ Silence Hexokinase                                     *g:Hexokinase_silent*
                 Default value: >
                   let g:Hexokinase_silent = 0
 
-Opt-in Patterns                                 *g:Hexokinase_optInPatterns*
+Opt-in Patterns                                 *deprecated-g:Hexokinase_optInPatterns*
 
                 Type: |List| of |String|
                 Which builtin patterns hexokinase should match.
@@ -129,7 +131,7 @@ Opt-in Patterns                                 *g:Hexokinase_optInPatterns*
 <
 
 
-CREATE HIGHLIGHTERS                                 *hexokinase-highlighters*
+CREATE HIGHLIGHTERS                                 *deprecated-hexokinase-highlighters*
 ===========================================================================
 
 |hexokinase| was built with extensibility in mind. Currently the only
@@ -138,7 +140,7 @@ Text feature. However, this can easily be extended. To extend you need two
 functions with the following signature (the name doesn't matter since it gets
 passed as a function reference below):
 
-highlight_callback({lnum}, {hex}, {hl_name}, {start}, {end})  *hexokinase-highlight_callback*
+highlight_callback({lnum}, {hex}, {hl_name}, {start}, {end})  *deprecated-hexokinase-highlight_callback*
 
                 {lnum} is an Integer while the line number of the colour
                 (indexed at 1), {lnum} may repeat if multiple matches are
@@ -159,7 +161,7 @@ highlight_callback({lnum}, {hex}, {hl_name}, {start}, {end})  *hexokinase-highli
                 function doesn't matter since it is a function reference): >
                   let g:Hexokinase_highlightCallbacks = [function('highlight_callback')]
 
-teardown_callback()                            *hexokinase-teardown_callback*
+teardown_callback()                            *deprecated-hexokinase-teardown_callback*
 
                 This will get triggered when the highlighting is turned off by
                 the user. This would be the time to revert any UI changes that
@@ -170,7 +172,7 @@ teardown_callback()                            *hexokinase-teardown_callback*
                   let g:Hexokinase_tearDownCallbacks = [function('teardown_callback')]
 
 
-CREATE PATTERNS                                         *hexokinase-patterns*
+CREATE PATTERNS                                         *deprecated-hexokinase-patterns*
 ===========================================================================
 
 |hexokinase| was built with extensibility in mind. Currently the only
@@ -187,7 +189,7 @@ Then you need a function (seen below) to process the pattern and turn it into a 
 code which will then automatically be converted to a highlight groups and sent
 off to all available highlighters.
 
-process_pattern({match})                         *hexokinase-process_pattern*
+process_pattern({match})                         *deprecated-hexokinase-process_pattern*
 
                 {match} is the text that matched the associated pattern.  It
                 must then convert {match} to a 6-digit hex code and return it
@@ -213,7 +215,7 @@ A more complete example can be found here:
 https://github.com/RRethy/vim-hexokinase/issues/16.
 
 
-FAQ                                                         *hexokinase-faq*
+FAQ                                                         *deprecated-hexokinase-faq*
 ===========================================================================
 
 Q: I'm seeing grey colours when I toggle vim-hexokinase
