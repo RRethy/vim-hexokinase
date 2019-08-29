@@ -5,7 +5,31 @@
 Author:  Adam P. Regasz-Rethy (RRethy) <rethy.spud@gmail.com>
 License: Same terms as Vim itself (see |license|)
 
-INTRODUCTION                                                     *hexokinase*
+CONTENTS                                                *hexokinase-contents*
+===========================================================================
+
+Introduction.................................|hexokinase-introduction|
+Quick Start..................................|hexokinase-quick-start|
+Installation.................................|hexokinase-installation|
+Commands.....................................|hexokinase-commands|
+Configuration................................|hexokinase-configuration|
+    Highlighters.............................|g:Hexokinase_highlighters|
+    Custom Patterns via Palettes ............|g:Hexokinase_palettes|
+    Patterns To Find ........................|g:Hexokinase_optInPatterns|
+    Patterns To Ignore ......................|g:Hexokinase_optOutPatterns|
+    FileType Specific Patterns to Find ......|g:Hexokinase_ftOptInPatterns|
+    FileType Specific Patterns to Ignore.....|g:Hexokinase_ftOptOutPatterns|
+    Virtual Text.............................|g:Hexokinase_virtualText|
+    Sign Column Icon.........................|g:Hexokinase_signIcon|
+    Refresh Events...........................|g:Hexokinase_refeshEvents|
+    Disabled FileTypes.......................|g:Hexokinase_ftDisabled|
+    Enabled FileTypes........................|g:Hexokinase_ftEnabled|
+Create Custom Highlighters...................|hexokinase-custom-highlighters|
+    Highlight Callback.......................|hexokinase-highlight_callback|
+    Teardown Callback........................|hexokinase-teardown_callback|
+FAQ..........................................|hexokinase-faq|
+
+INTRODUCTION                                        *hexokinase-introduction*
 ===========================================================================
 
 This plugin will display the colour which corresponds to text on the screen.
@@ -34,9 +58,50 @@ display it any way you choose. Out of the box, colours can be displayed in the
 sign column, as virtual text (only for Neovim), as the foreground colour for
 the text (there are two different types of foreground colouring), or as the
 background colour of the text (there are also two different types of
-background colouring).
+background colouring). See |g:Hexokinase_highlighters| for more information.
 
 Note: |'termguicolors'| must be turned on and your terminal must support it.
+
+QUICK START                                          *hexokinase-quick-start*
+===========================================================================
+
+These are the three most basic parts of the plugin to get up and running. #1
+is a must, while #2 and #3 already have strong defaults. For more complete
+description of the plugin, although verbose, this help file documents
+everything.
+
+1. Follow |hexokinase-installation|.
+2. Choose your highlighting method, or stick with the default,
+   |g:Hexokinase_highlighters|.
+3. Choose which patterns are matched, or stick with the default,
+   |g:Hexokinase_optInPatterns|.
+
+INSTALLATION                                        *hexokinase-installation*
+===========================================================================
+
+Golang must be installed, for more information visit
+https://golang.org/doc/install.
+
+Simply run the following in the project root each time the plugin is updated: >
+    make hexokinase
+<
+Or alternatively, leverage your plugin manager to run `make hexokinase` on update: >
+    " vim-plug
+    Plug 'rrethy/vim-hexokinase', { 'do': 'make' }
+
+    " minpac
+    call minpac#add('rrethy/vim-hexokinase', { 'do': 'make' })
+
+    " etc.
+<
+|'termguicolors'| must be turned on and your terminal must support it.
+
+Note: This has been tested on MacOS. Linux should work as well. Windows is
+untested, if you find an issue with Windows, open an issue at
+https://github.com/rrethy/vim-hexokinase/issues.
+
+Note: There are no specific installation instructions if you wish to stick
+with v1 of vim-hexokinase.
 
 COMMANDS                                                *hexokinase-commands*
 ===========================================================================
@@ -56,11 +121,16 @@ Highlighters                                      *g:Hexokinase_highlighters*
 
                 Type: |List| of |String|s
                 How to display the colour.
+                Checkout |hexokinase-custom-highlighters| to create your own
+                highlighter.
 
-                Default value:
-                  Vim - sign_column to use |'signcolumn'|
-                  Neovim - virtual text to use |nvim_buf_set_virtual_text()|
+                Default value: >
+                  " Neovim default
+                  let g:Hexokinase_highlighters = [ 'virtual' ]
 
+                  " Vim default
+                  let g:Hexokinase_highlighters = [ 'sign_column' ]
+<
                 Possible values: >
                   let g:Hexokinase_highlighters = [
                   \   'virtual',
@@ -74,11 +144,12 @@ Highlighters                                      *g:Hexokinase_highlighters*
                 Any combination of them can be used, on top of custom
                 highlighters.
 
-                "virtual" will use Neovim's virtual text feature to display
+                "virtual" will use Neovim's virtual text feature
+                (|nvim_buf_set_virtual_text()|) to display
                 the colour. However, only one colour per line can be
                 displayed. I personally use "virtual".
 
-                "sign_column" will use the 'sign_column' to display the
+                "sign_column" will use the |'sign_column'| to display the
                 colour. However, only one colour per line can be displayed.
 
                 "background" will highlight the background of certain
@@ -101,6 +172,7 @@ Custom Patterns via Palettes *g:Hexokinase_palettes*
                 Type: |List| of |String|s
                 Each string is a path to a file that can be used as a
                 palette.
+
                 A palette is a json file that looks like the following:
                 >
                 {
@@ -120,23 +192,26 @@ Custom Patterns via Palettes *g:Hexokinase_palettes*
                 If the key "regex_pattern" does not exist in the top-level.
                 Each key in "colour_table" will be looked for. Omitting an
                 overly complex "regex_pattern" will improve performance, but
-                it's unlikely to produce a noticible difference.
+                it's unlikely to produce a noticeable difference.
 
                 By using a palette, you can highlight variables which refer to
                 colours in your code.
 
-                Note: "regex_pattern" follows the regex syntax of Golang NOT
-                Vimscript.
+                Note: "regex_pattern" follows the regex syntax accepted by
+                RE2, except for \C. For more information see
+                https://github.com/google/re2/wiki/Syntax. This syntax is
+                similar to Golang, Perl, Python, etc.. It is NOT Vimscript
+                style regex.
 
 Patterns To Find *g:Hexokinase_optInPatterns*
 
                 Type: |List| of |String|s
                       OR
-                      Comma seperated |String| with no spaces
+                      Comma separated |String| with no spaces
                 Which patterns to look for.
 
                 Default value: >
-                let g:Hexokinase_optInPatterns = 'full_hex'
+                let g:Hexokinase_optInPatterns = [ 'full_hex' ]
 <
 
                 Possible values: >
@@ -150,7 +225,7 @@ Patterns To Find *g:Hexokinase_optInPatterns*
                 \     'colour_names'
                 \ ]
 <
-                This option can be overriden by other configuration, this is
+                This option can be overridden by other configuration, this is
                 the relevant precedence order:
                 1. |g:Hexokinase_ftOptOutPatterns|
                 2. |g:Hexokinase_ftOptInPatterns|
@@ -161,7 +236,7 @@ Patterns To Ignore *g:Hexokinase_optOutPatterns*
 
                 Type: |List| of |String|s
                       OR
-                      Comma seperated |String| with no spaces
+                      Comma separated |String| with no spaces
                 Which patterns to ignore.
 
                 Default value: >
@@ -179,7 +254,7 @@ Patterns To Ignore *g:Hexokinase_optOutPatterns*
                 \     'colour_names'
                 \ ]
 <
-                This option can be overriden by other configuration, this is
+                This option can be overridden by other configuration, this is
                 the relevant precedence order:
                 1. |g:Hexokinase_ftOptOutPatterns|
                 2. |g:Hexokinase_ftOptInPatterns|
@@ -197,7 +272,7 @@ FileType Specific Patterns to Find *g:Hexokinase_ftOptInPatterns*
                 \     'html': 'full_hex,rgb,rgba,hsl,hsla,colour_names'
                 \ }
 <
-                This option can be overriden by other configuration, this is
+                This option can be overridden by other configuration, this is
                 the relevant precedence order:
                 1. |g:Hexokinase_ftOptOutPatterns|
                 2. |g:Hexokinase_ftOptInPatterns|
@@ -222,14 +297,14 @@ FileType Specific Patterns to Ignore *g:Hexokinase_ftOptOutPatterns*
 Virtual Text *g:Hexokinase_virtualText*
 
                 Type: |String|
-                The text to display when using virtual text to display the
+                The text to display when using virtual text for the
                 highlighting.
 
                 Default value: >
                 let g:Hexokinase_virtualText = '■'
 <
-                Note: Highlighting is done on the foreground of what is passed
-                so spaces will not work, instead use "█".
+                Note: Highlighting is done on the foreground of what is
+                passed, so spaces will not work, instead use "█".
 
 Sign Column Icon *g:Hexokinase_signIcon*
 
@@ -240,6 +315,9 @@ Sign Column Icon *g:Hexokinase_signIcon*
                 let g:Hexokinase_signIcon = '■'
 <
                 Note: Can only be one or two characters long.
+<
+                Note: Highlighting is done on the foreground of what is
+                passed, so spaces will not work, instead use "█".
 
 Refresh Events *g:Hexokinase_refeshEvents*
 
@@ -247,18 +325,14 @@ Refresh Events *g:Hexokinase_refeshEvents*
                 Which |autocmd-events| trigger a refresh of highlighting.
 
                 Default value: >
-                let g:Hexokinase_refeshEvents = ['BufWrite', 'BufCreate'] " TODO
+                let g:Hexokinase_refeshEvents = ['BufWrite', 'BufCreate']
 <
                 Since the scraping is done asynchronously and no more than a
                 single scraping job is started per buffer, you can use more
                 aggressive |autocmd-events|. For live updating you could use
-                ['TextChanged', 'InsertLeave']. Although, similarly to
-                vim-ale, this can slow down macros since those autocmds will
-                be triggered in quick succession.
+                ['TextChanged', 'InsertLeave'].
 
 Disabled FileTypes *g:Hexokinase_ftDisabled*
-
-TODO
 
                 Type: |List| of |String|s
                 Which FileTypes not to scrape.
@@ -267,49 +341,47 @@ TODO
                     let g:Hexokinase_ftDisabled = []
 <
                 This will override |g:Hexokinase_ftEnabled|.
-
-                You can pass "*" to disable for all FileTypes.
+                This will be overridden by any use of |HexokinaseTurnOn|.
 
 Enabled FileTypes *g:Hexokinase_ftEnabled*
-
-TODO
 
                 Type: |List| of |String|s
                 Which FileTypes to scrape automatically.
 
                 Default value: >
-                let g:Hexokinase_ftEnabled = ['text', 'css', 'html', 'markdown', 'xml']
+                let g:Hexokinase_ftEnabled = []
 <
-                This will be overriden by |g:Hexokinase_ftEnabled|.
+                This will be overriden by |g:Hexokinase_ftDisabled|.
 
-                You can pass "*" to disable for all FileTypes.
-
-CREATE HIGHLIGHTERS                                 *hexokinase-highlighters*
+CREATE CUSTOM HIGHLIGHTERS                   *hexokinase-custom-highlighters*
 ===========================================================================
 
 To create a custom highlighter you need to create two functions with the
 following signatures (the name doesn't matter since it gets passed as a
 function reference below):
 
+Note: Check out ./autoload/hexokinase/highlighters/*.vim for examples of
+      highlighters.
+
 highlight_callback({bufnr}, {lnum}, {hex}, {hl_name}, {start}, {end})
                                               *hexokinase-highlight_callback*
 
                 Note: {bufnr} param is new and did not exist in v1. Existing
-                callbacks must be changed.
+                callbacks signatures must be updated.
 
                 {bufnr} is the buffer number of the buffer that was scraped.
                 The currently active buffer may be different since scraping is
                 done asynchronously.
 
-                {lnum} is an Integer while the line number of the colour
-                (indexed at 1), {lnum} may repeat if multiple matches are
-                found on the same line.
+                {lnum} is an Integer of the line number of the colour (indexed
+                at 1), {lnum} may repeat in subsequent calls if multiple
+                matches are found on the same line.
 
-                {start} and {end} are the start and
-                end (respectively) of the matched colour. {start} is indexed
-                at 1 since it represents the column.
+                {start} and {end} are the start and end column of the matched
+                colour. {start} is indexed at 1 since it represents the
+                column.
 
-                {hex} is the hex for the matched colour.
+                {hex} a string of the hex for the matched colour.
 
                 {hl_name} is the name of the highlight group
                 that was defined for the highlighting. By default, the
@@ -321,7 +393,7 @@ highlight_callback({bufnr}, {lnum}, {hex}, {hl_name}, {start}, {end})
                 This will get triggered when a match is found and would be
                 responsible for doing the work to display the match.
 
-                This gets setup using the following: >
+                Register this callback as follows: >
                   let g:Hexokinase_highlightCallbacks = [
                   \     function('highlight_callback')
                   \ ]
@@ -330,7 +402,7 @@ teardown_callback({bufnr})
                                                *hexokinase-teardown_callback*
 
                 Note: {bufnr} param is new and did not exist in v1. Existing
-                callbacks must be changed.
+                callbacks signatures must be updated.
 
                 {bufnr} is the buffer number of the buffer that was scraped.
                 The currently active buffer may be different than {bufnr} so
@@ -340,9 +412,9 @@ teardown_callback({bufnr})
                 the user or when it is refreshed for a buffer. This would be
                 the time to revert any UI changes that were made in
                 |hexokinase-highlight_callback|. When being refreshed, the
-                entire buffer is scraped before the callback is triggerred.
+                entire buffer is scraped before the callback is triggered.
 
-                This gets setup using the following: >
+                Register this callback as follows: >
                   let g:Hexokinase_tearDownCallbacks = [
                   \     function('teardown_callback')
                   \ ]
@@ -353,6 +425,6 @@ FAQ                                                         *hexokinase-faq*
 Q: I'm seeing grey colours when I toggle vim-hexokinase
 
 A: You need `termguicolors` to be turned on. Verify `:set termguicolors?`
-outputs `1`.
+outputs `termguicolors`.
 
 vim:tw=78:ts=8:ft=help:norl:

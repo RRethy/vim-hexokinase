@@ -27,7 +27,12 @@ fun! hexokinase#v2#scraper#on() abort
         let cmd = printf('%s -r -simplified -files=%s', g:Hexokinase_executable_path, tmpname)
         let cmd .= hexokinase#utils#getPatModifications()
         if !empty(g:Hexokinase_palettes)
-            let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
+            if filereadable(g:Hexokinase_palettes)
+                let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
+            else
+                echohl Error | echom printf('ERROR: g:Hexokinase_palettes[%s] must be a valid path to a file', string(g:Hexokinase_palettes)) | echohl None
+                return
+            endif
         endif
 
         let b:hexokinase_job_id = jobstart(cmd, opts)
@@ -80,6 +85,8 @@ fun! s:on_exit(id, status, event) abort dict
     if a:status
         return
     endif
+    " clearing previous highlighting and adding new highlighting is done
+    " synchronously to avoid flicker
     call s:clear_hl(bufnr('%'))
     for colour in self.colours
         let hl_name = 'v2hexokinaseHighlight'.strpart(colour.hex, 1)

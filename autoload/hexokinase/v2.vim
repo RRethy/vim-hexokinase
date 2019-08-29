@@ -11,7 +11,7 @@ fun! hexokinase#v2#setup() abort
     let g:Hexokinase_signIcon = get(g:, 'Hexokinase_signIcon', '■')
 
     let g:Hexokinase_optOutPatterns = get(g:, 'Hexokinase_optOutPatterns', '')
-    let g:Hexokinase_optInPatterns = get(g:, 'Hexokinase_optInPatterns', 'full_hex')
+    let g:Hexokinase_optInPatterns = get(g:, 'Hexokinase_optInPatterns', [ 'full_hex' ])
     let g:Hexokinase_ftOptOutPatterns = get(g:, 'Hexokinase_ftOptOutPatterns', {})
     let g:Hexokinase_ftOptInPatterns = get(g:, 'Hexokinase_ftOptInPatterns', {
                 \     'css': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
@@ -20,13 +20,19 @@ fun! hexokinase#v2#setup() abort
     let g:Hexokinase_palettes = get(g:, 'Hexokinase_palettes', [])
 
     let g:Hexokinase_builtinHighlighters = get(g:, 'Hexokinase_builtinHighlighters', [
-                \ 'virtual', 'sign_column', 'background', 'backgroundfull', 'foreground', 'foregroundfull'])
+                \     'virtual',
+                \     'sign_column',
+                \     'background',
+                \     'backgroundfull',
+                \     'foreground',
+                \     'foregroundfull'
+                \ ])
     let g:Hexokinase_highlightCallbacks = get(g:, 'Hexokinase_highlightCallbacks', [])
     let g:Hexokinase_tearDownCallbacks = get(g:, 'Hexokinase_tearDownCallbacks', [])
-    for mode in g:Hexokinase_highlighters
-        if index(g:Hexokinase_builtinHighlighters, mode) >= 0
-            call add(g:Hexokinase_highlightCallbacks, function('hexokinase#highlighters#' . mode . '#highlightv2'))
-            call add(g:Hexokinase_tearDownCallbacks, function('hexokinase#highlighters#' . mode . '#tearDownv2'))
+    for highlighter in g:Hexokinase_highlighters
+        if index(g:Hexokinase_builtinHighlighters, highlighter) >= 0
+            call add(g:Hexokinase_highlightCallbacks, function('hexokinase#highlighters#' . highlighter . '#highlightv2'))
+            call add(g:Hexokinase_tearDownCallbacks, function('hexokinase#highlighters#' . highlighter . '#tearDownv2'))
         endif
     endfor
 
@@ -34,34 +40,33 @@ fun! hexokinase#v2#setup() abort
     command! HexokinaseTurnOn call hexokinase#v2#scraper#on()
     command! HexokinaseTurnOff call hexokinase#v2#scraper#off()
 
-    let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['BufWrite'])
-    let g:Hexokinase_ftAutoload = get(g:, 'Hexokinase_ftAutoload', ['text', 'css', 'html', 'markdown', 'xml'])
+    let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['BufWrite', 'BufRead'])
+    let g:Hexokinase_ftDisabled = get(g:, 'Hexokinase_ftDisabled', [])
+    let g:Hexokinase_ftEnabled = get(g:, 'Hexokinase_ftEnabled', [])
 
-    if has('autocmd')
-        augroup hexokinase_autocmds
-            autocmd!
-            exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call s:on_refresh_event()'
-            if get(g:, 'Hexokinase_autoenable', 1)
-                autocmd BufRead,BufWrite * call s:check_colours()
-            else
-                if !empty(g:Hexokinase_ftAutoload)
-                    exe 'autocmd FileType '.join(g:Hexokinase_ftAutoload, ',').' call hexokinase#v2#scraper#on()'
-                endif
-            endif
-            autocmd ColorScheme * call s:on_refresh_event()
-        augroup END
-    endif
-
-    fun! s:check_colours() abort
-        if !exists('b:hexokinase_is_on')
-            call hexokinase#checker#check()
-        endif
-    endf
+    augroup hexokinase_autocmds
+        autocmd!
+        exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call s:on_refresh_event()'
+        autocmd ColorScheme * call s:on_refresh_event()
+    augroup END
 
     fun! s:on_refresh_event() abort
         let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
         if b:hexokinase_is_on
             call hexokinase#v2#scraper#on()
+            return
         endif
+
+        if !empty(g:Hexokinase_ftDisabled)
+            if index(g:Hexokinase_ftDisabled, &filetype) > -1
+                return
+            endif
+        elseif !empty(g:Hexokinase_ftEnabled)
+            if index(g:Hexokinase_ftEnabled, &filetype) == -1
+                return
+            endif
+        endif
+
+        call hexokinase#v2#scraper#on()
     endf
 endf
