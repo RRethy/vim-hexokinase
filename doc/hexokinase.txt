@@ -24,6 +24,7 @@ Configuration................................|hexokinase-configuration|
     Refresh Events...........................|g:Hexokinase_refeshEvents|
     Disabled FileTypes.......................|g:Hexokinase_ftDisabled|
     Enabled FileTypes........................|g:Hexokinase_ftEnabled|
+    Background Colour for Alpha Calculations.|g:Hexokinase_alpha_bg|
 Create Custom Highlighters...................|hexokinase-custom-highlighters|
     Highlight Callback.......................|hexokinase-highlight_callback|
     Teardown Callback........................|hexokinase-teardown_callback|
@@ -167,7 +168,7 @@ Highlighters                                      *g:Hexokinase_highlighters*
                 "foregroundfull" will highlight the whole foreground of the
                 appropriate text.
 
-Custom Patterns via Palettes *g:Hexokinase_palettes*
+Custom Patterns via Palettes                          *g:Hexokinase_palettes*
 
                 Type: |List| of |String|s
                 Each string is a path to a file that can be used as a
@@ -203,7 +204,7 @@ Custom Patterns via Palettes *g:Hexokinase_palettes*
                 similar to Golang, Perl, Python, etc.. It is NOT Vimscript
                 style regex.
 
-Patterns To Find *g:Hexokinase_optInPatterns*
+Patterns To Find                                 *g:Hexokinase_optInPatterns*
 
                 Type: |List| of |String|s
                       OR
@@ -232,7 +233,7 @@ Patterns To Find *g:Hexokinase_optInPatterns*
                 3. |g:Hexokinase_optOutPatterns|
                 4. |g:Hexokinase_optInPatterns|
 
-Patterns To Ignore *g:Hexokinase_optOutPatterns*
+Patterns To Ignore                              *g:Hexokinase_optOutPatterns*
 
                 Type: |List| of |String|s
                       OR
@@ -261,7 +262,7 @@ Patterns To Ignore *g:Hexokinase_optOutPatterns*
                 3. |g:Hexokinase_optOutPatterns|
                 4. |g:Hexokinase_optInPatterns|
 
-FileType Specific Patterns to Find *g:Hexokinase_ftOptInPatterns*
+FileType Specific Patterns to Find             *g:Hexokinase_ftOptInPatterns*
 
                 Type: |Dict| of |String| to |List| of |String|s
                 Which patterns to look for for specific filetypes.
@@ -279,7 +280,7 @@ FileType Specific Patterns to Find *g:Hexokinase_ftOptInPatterns*
                 3. |g:Hexokinase_optOutPatterns|
                 4. |g:Hexokinase_optInPatterns|
 
-FileType Specific Patterns to Ignore *g:Hexokinase_ftOptOutPatterns*
+FileType Specific Patterns to Ignore          *g:Hexokinase_ftOptOutPatterns*
 
                 Type: |Dict| of |String| to |List| of |String|s
                 Which patterns to ignore for specific filetypes.
@@ -294,7 +295,7 @@ FileType Specific Patterns to Ignore *g:Hexokinase_ftOptOutPatterns*
                 3. |g:Hexokinase_optOutPatterns|
                 4. |g:Hexokinase_optInPatterns|
 
-Virtual Text *g:Hexokinase_virtualText*
+Virtual Text                                       *g:Hexokinase_virtualText*
 
                 Type: |String|
                 The text to display when using virtual text for the
@@ -306,7 +307,7 @@ Virtual Text *g:Hexokinase_virtualText*
                 Note: Highlighting is done on the foreground of what is
                 passed, so spaces will not work, instead use "█".
 
-Sign Column Icon *g:Hexokinase_signIcon*
+Sign Column Icon                                      *g:Hexokinase_signIcon*
 
                 Type: |String|
                 The text to display when using the |sign_column|.
@@ -315,11 +316,11 @@ Sign Column Icon *g:Hexokinase_signIcon*
                 let g:Hexokinase_signIcon = '■'
 <
                 Note: Can only be one or two characters long.
-<
+
                 Note: Highlighting is done on the foreground of what is
                 passed, so spaces will not work, instead use "█".
 
-Refresh Events *g:Hexokinase_refeshEvents*
+Refresh Events                                    *g:Hexokinase_refeshEvents*
 
                 Type: |List| of |String|s
                 Which |autocmd-events| trigger a refresh of highlighting.
@@ -332,7 +333,7 @@ Refresh Events *g:Hexokinase_refeshEvents*
                 aggressive |autocmd-events|. For live updating you could use
                 ['TextChanged', 'InsertLeave'].
 
-Disabled FileTypes *g:Hexokinase_ftDisabled*
+Disabled FileTypes                                  *g:Hexokinase_ftDisabled*
 
                 Type: |List| of |String|s
                 Which FileTypes not to scrape.
@@ -343,7 +344,7 @@ Disabled FileTypes *g:Hexokinase_ftDisabled*
                 This will override |g:Hexokinase_ftEnabled|.
                 This will be overridden by any use of |HexokinaseTurnOn|.
 
-Enabled FileTypes *g:Hexokinase_ftEnabled*
+Enabled FileTypes                                    *g:Hexokinase_ftEnabled*
 
                 Type: |List| of |String|s
                 Which FileTypes to scrape automatically.
@@ -352,6 +353,20 @@ Enabled FileTypes *g:Hexokinase_ftEnabled*
                 let g:Hexokinase_ftEnabled = []
 <
                 This will be overriden by |g:Hexokinase_ftDisabled|.
+
+Background Colour for Alpha Calculations              *g:Hexokinase_alpha_bg*
+
+                Type: |String|
+                Hex code to use when calculating alpha for `rgba` and `hsla`
+                functions.
+
+                Default value: >
+                    g:Hexokinase_alpha_bg = ''
+<
+                By default calculations are done using the background of
+                |hl-Normal| or |hl-SignColumn|. This will override that.
+
+                Note: This MUST be a valid 6 digit hex. Such as `#ffffff`.
 
 CREATE CUSTOM HIGHLIGHTERS                   *hexokinase-custom-highlighters*
 ===========================================================================

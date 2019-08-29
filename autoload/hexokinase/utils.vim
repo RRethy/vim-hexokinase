@@ -49,7 +49,9 @@ fun! hexokinase#utils#get_background_rgb() abort
 endf
 
 fun! hexokinase#utils#get_background_hex() abort
-    if len(g:Hexokinase_highlighters) == 1 && g:Hexokinase_highlighters[0] ==# 'sign_column'
+    if !empty(get(g:, 'Hexokinase_alpha_bg', ''))
+        return g:Hexokinase_alpha_bg
+    elseif len(g:Hexokinase_highlighters) == 1 && g:Hexokinase_highlighters[0] ==# 'sign_column'
         return synIDattr(hlID('SignColumn'), 'bg')
     else
         return synIDattr(hlID('Normal'), 'bg')
