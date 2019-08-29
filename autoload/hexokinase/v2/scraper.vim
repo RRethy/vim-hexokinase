@@ -26,6 +26,7 @@ fun! hexokinase#v2#scraper#on() abort
                     \ }
         let cmd = printf('%s -r -simplified -files=%s', g:Hexokinase_executable_path, tmpname)
         let cmd .= hexokinase#utils#getPatModifications()
+        let cmd .= ' -bg='.hexokinase#utils#get_background_hex()
         if !empty(g:Hexokinase_palettes)
             if filereadable(g:Hexokinase_palettes)
                 let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
