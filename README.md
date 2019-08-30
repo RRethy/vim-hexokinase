@@ -10,6 +10,22 @@
 
 ![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
 
+> let g:Hexokinase_highlighters = ['foreground']
+
+![pic](https://user-images.githubusercontent.com/21000943/64053823-2c26ae00-cb52-11e9-869a-f8ddfe797196.png)
+
+> let g:Hexokinase_highlighters = ['foregroundfull']
+
+![pic](https://user-images.githubusercontent.com/21000943/64053892-6e4fef80-cb52-11e9-8c81-31a785c7503e.png)
+
+> let g:Hexokinase_highlighters = ['background']
+
+![pic](https://user-images.githubusercontent.com/21000943/64054020-1f568a00-cb53-11e9-86ae-76fe7a97ffa7.png)
+
+> let g:Hexokinase_highlighters = ['backgroundfull']
+
+![pic](https://user-images.githubusercontent.com/21000943/64053893-6ee88600-cb52-11e9-8403-db6216eee7c4.png)
+
 ## Rationale
 
 [Colorizer](https://github.com/chrisbra/Colorizer) and [Colorizer](https://github.com/lilydjwg/colorizer) are plugins which also display the colour of text. However, it does so by changing the background of the text which is not pleasing to look at. Most IDEs and modern editors will display the colour in the gutter (in Vim known as the sign column) or as virtual text. This plugin aims to bring that now to Vim, as well as make it easy for the user to add new highlighters.
