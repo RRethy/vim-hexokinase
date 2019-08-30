@@ -172,12 +172,20 @@ Highlighters                                      *g:Hexokinase_highlighters*
                 "foregroundfull" will highlight the whole foreground of the
                 appropriate text.
 
+                Note: foreground, foregroundfull, background, and
+                backgroundfull have been rewritten from v1 and now actually
+                work as they should.
+
 Custom Patterns via Palettes                          *g:Hexokinase_palettes*
 
                 Type: |List| of |String|s
                 Each string is a path to a file that can be used as a
                 palette.
 
+                Sample value: >
+                " must be absolute path
+                let g:Hexokinase_palettes = [expand($HOME).'/path/to/file']
+<
                 A palette is a json file that looks like the following:
                 >
                 {
@@ -380,38 +388,29 @@ following signatures (the name doesn't matter since it gets passed as a
 function reference below):
 
 Note: Check out ./autoload/hexokinase/highlighters/*.vim for examples of
-      highlighters.
+      highlighters. Look at the functions ending in v2.
 
-highlight_callback({bufnr}, {lnum}, {hex}, {hl_name}, {start}, {end})
+highlight_callback({bufnr})
                                               *hexokinase-highlight_callback*
-
-                Note: {bufnr} param is new and did not exist in v1. Existing
-                callbacks signatures must be updated.
 
                 {bufnr} is the buffer number of the buffer that was scraped.
                 The currently active buffer may be different since scraping is
                 done asynchronously.
 
-                {lnum} is an Integer of the line number of the colour (indexed
-                at 1), {lnum} may repeat in subsequent calls if multiple
-                matches are found on the same line.
+                `b:hexokinase_colours` will be set to a list of dictionaries
+                with the following entries:
 
-                {start} and {end} are the start and end column of the matched
-                colour. {start} is indexed at 1 since it represents the
-                column.
+                    lnum    line number for the match
+                    start   start column of the match (indexed from 1)
+                    end     end column of the match (indexed from 1)
+                    hex     six digit hex code of the colour
 
-                {hex} a string of the hex for the matched colour.
-
-                {hl_name} is the name of the highlight group
-                that was defined for the highlighting. By default, the
-                auto-generated highlight group will only set the value for
-                |highlight-guifg| and |highlight-ctermfg|, if you want the
-                background to change then you need to create your own
-                highlight group using {hex}.
-
-                This will get triggered when a match is found and would be
-                responsible for doing the work to display the match.
-
+                Sample value: >
+                echo b:hexokinase_colours
+                => [{'lnum': '407',  'start': '1', 'end': '7', 'hex':
+                '#ffffff'}, {'lnum': '381', 'start': '66', 'end': '72 ',
+                'hex': '#00ffaa'}]
+<
                 Register this callback as follows: >
                   let g:Hexokinase_highlightCallbacks = [
                   \     function('highlight_callback')
@@ -449,6 +448,7 @@ list of deprecated features.
  -------------------------+-------------------------------------------------
  Feature                  | Alternative                                                                  ~
  -------------------------+-------------------------------------------------
+  `Custom Highlighters`     | Still exist, but different callback signatures
   `HexokinaseRefresh`       | Instead use `HexokinaseTurnOn`, see
                           |   |hexokinase-commands|
   `g:Hexokinase_ftAutoload` | Instead use |g:Hexokinase_ftEnabled|

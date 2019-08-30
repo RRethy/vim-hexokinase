@@ -28,12 +28,7 @@ fun! hexokinase#v2#scraper#on() abort
         let cmd .= hexokinase#utils#getPatModifications()
         let cmd .= ' -bg='.hexokinase#utils#get_background_hex()
         if !empty(g:Hexokinase_palettes)
-            if filereadable(g:Hexokinase_palettes)
-                let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
-            else
-                echohl Error | echom printf('ERROR: g:Hexokinase_palettes[%s] must be a valid path to a file', string(g:Hexokinase_palettes)) | echohl None
-                return
-            endif
+            let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
         endif
 
         let b:hexokinase_job_id = jobstart(cmd, opts)
@@ -83,17 +78,12 @@ endf
 
 fun! s:on_exit(id, status, event) abort dict
     call delete(self.tmpname)
+    call s:clear_hl(self.bufnr)
     if a:status
         return
     endif
-    " clearing previous highlighting and adding new highlighting is done
-    " synchronously to avoid flicker
-    call s:clear_hl(bufnr('%'))
-    for colour in self.colours
-        let hl_name = 'v2hexokinaseHighlight'.strpart(colour.hex, 1)
-        exe 'hi '.hl_name.' guifg='.colour.hex
-        for F in g:Hexokinase_highlightCallbacks
-            call F(self.bufnr, colour.lnum, colour.hex, hl_name, colour.start, colour.end)
-        endfor
+    call setbufvar(self.bufnr, 'hexokinase_colours', self.colours)
+    for F in g:Hexokinase_highlightCallbacks
+        call F(self.bufnr)
     endfor
 endf

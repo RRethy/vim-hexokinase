@@ -49,24 +49,24 @@ fun! hexokinase#v2#setup() abort
         exe 'autocmd '.join(g:Hexokinase_refreshEvents, ',').' * call s:on_refresh_event()'
         autocmd ColorScheme * call s:on_refresh_event()
     augroup END
+endf
 
-    fun! s:on_refresh_event() abort
-        let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
-        if b:hexokinase_is_on
-            call hexokinase#v2#scraper#on()
+fun! s:on_refresh_event() abort
+    let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
+    if b:hexokinase_is_on
+        call hexokinase#v2#scraper#on()
+        return
+    endif
+
+    if !empty(g:Hexokinase_ftDisabled)
+        if index(g:Hexokinase_ftDisabled, &filetype) > -1
             return
         endif
-
-        if !empty(g:Hexokinase_ftDisabled)
-            if index(g:Hexokinase_ftDisabled, &filetype) > -1
-                return
-            endif
-        elseif !empty(g:Hexokinase_ftEnabled)
-            if index(g:Hexokinase_ftEnabled, &filetype) == -1
-                return
-            endif
+    elseif !empty(g:Hexokinase_ftEnabled)
+        if index(g:Hexokinase_ftEnabled, &filetype) == -1
+            return
         endif
+    endif
 
-        call hexokinase#v2#scraper#on()
-    endf
+    call hexokinase#v2#scraper#on()
 endf
