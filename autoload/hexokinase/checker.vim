@@ -6,7 +6,7 @@ fun! hexokinase#checker#check() abort
     if !fail
         let opts = {
                     \ 'tmpname': tmpname,
-                     \ 'on_exit': function('s:on_exit'),
+                    \ 'on_exit': function('s:on_exit'),
                     \ 'bufnr': bufnr('%'),
                     \ }
         let cmd = printf('%s -check=%s ', g:Hexokinase_executable_path, tmpname)

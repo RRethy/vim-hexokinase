@@ -36,7 +36,7 @@ endf
 fun! hexokinase#utils#hex_to_rgb(hex) abort
     let raw_hex = [0, 0, 0, 0, 0, 0]
     for i in range(1, 6)
-        let raw_hex[i - 1] = index(s:hexadecimals, a:hex[i])
+        let raw_hex[i - 1] = index(s:hexadecimals, toupper(a:hex[i]))
     endfor
     let r = (raw_hex[0] * 16) + raw_hex[1]
     let g = (raw_hex[2] * 16) + raw_hex[3]
@@ -49,7 +49,9 @@ fun! hexokinase#utils#get_background_rgb() abort
 endf
 
 fun! hexokinase#utils#get_background_hex() abort
-    if len(g:Hexokinase_highlighters) == 1 && g:Hexokinase_highlighters[0] ==# 'sign_column'
+    if !empty(get(g:, 'Hexokinase_alpha_bg', ''))
+        return g:Hexokinase_alpha_bg
+    elseif len(g:Hexokinase_highlighters) == 1 && g:Hexokinase_highlighters[0] ==# 'sign_column'
         return synIDattr(hlID('SignColumn'), 'bg')
     else
         return synIDattr(hlID('Normal'), 'bg')
@@ -132,4 +134,24 @@ fun! hexokinase#utils#getPatModifications() abort
         endif
     endif
     return cmd
+endf
+
+fun! hexokinase#utils#create_fg_hl(hex) abort
+    let hlname = 'v2hexokinaseHighlight'.strpart(a:hex, 1)
+    exe 'hi '.hlname.' guifg='.a:hex
+    return hlname
+endf
+
+fun! hexokinase#utils#create_bg_hl(hex) abort
+    let hlname = 'v2hexokinaseHighlight'.strpart(a:hex, 1)
+    let [r, g, b] = hexokinase#utils#hex_to_rgb(a:hex)
+    " This calculation is from the following:
+    " https://www.w3.org/TR/WCAG20/#relativeluminancedef
+    if 0.2126 * r + 0.7152 * g + 0.0722 * b > 179
+        let fg = '#000000'
+    else
+        let fg = '#ffffff'
+    endif
+    exe 'hi '.hlname.' guibg='.a:hex.' guifg='.fg
+    return hlname
 endf

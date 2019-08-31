@@ -10,114 +10,137 @@
 
 ![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
 
+> let g:Hexokinase_highlighters = ['foreground']
+
+![pic](https://user-images.githubusercontent.com/21000943/64053823-2c26ae00-cb52-11e9-869a-f8ddfe797196.png)
+
+> let g:Hexokinase_highlighters = ['foregroundfull']
+
+![pic](https://user-images.githubusercontent.com/21000943/64053892-6e4fef80-cb52-11e9-8c81-31a785c7503e.png)
+
+> let g:Hexokinase_highlighters = ['background']
+
+![pic](https://user-images.githubusercontent.com/21000943/64057174-bb8a8c00-cb67-11e9-99b9-66f8eba00c65.png)
+
+> let g:Hexokinase_highlighters = ['backgroundfull']
+
+![pic](https://user-images.githubusercontent.com/21000943/64057161-91d16500-cb67-11e9-83ab-535ad2489c5a.png)
+
 ## Rationale
 
-[Colorizer](https://github.com/chrisbra/Colorizer) and [Colorizer](https://github.com/lilydjwg/colorizer) are plugins which also display the colour of text. However, it does so by changing the background of the text which is not pleasing to look at. Most IDEs and modern editors will display the colour in the gutter (in Vim known as the sign column) or as virtual text. This plugin aims to bring that now to Vim, as well as make it easy for the user to add new highlighters.
+**Problem:** [Colorizer](https://github.com/chrisbra/Colorizer) and [Colorizer](https://github.com/lilydjwg/colorizer) are plugins which also display the colour of text. However, they do so by changing the background of the text which is not pleasing to look at. On top of that, they all scrape the file synchronously.
+
+**Solution:** Have 6 different options for displaying colour, including as virtual text or in the sign column. As well, do all scraping asynchronously.
 
 ## About
 
-This plugin will display the colour of hex codes (both 6 and 3 digit), and rgb/rgba functions.
+This plugin can display the colour of 6 digit hex codes, 3 digit hex codes, rgb functions, rgba functions, hsl functions, hsla functions, and custom patterns.
 
-It has currently two methods for displaying the colours, either in the sign column or as virtual text (Neovim exclusive).
+Colour can be displayed in each of the 6 six ways shown above, or can be customized to display colour any way the user chooses.
 
-The plugin was built with extensibility in mind ([it can be configured to colour variables](https://github.com/RRethy/vim-hexokinase/issues/16)), almost everything can be customized or extended.
+**Note:** By default all filetypes are scraped and highlighted on `BufWrite` and `BufCreate`, see `:h g:Hexokinase_refreshEvents` for more info.
+
+## Migration for existing users
+
+See `:help hexokinase-v1-migration`
 
 ## Requirements
 
 - `:h 'termguicolors'` must be turned on and your terminal must support it
 - For *virtual text*: Neovim 0.3.2
 - For *sign_column*: Vim compiled with `+signs` or any Neovim version
-
-## Commands
-
-| Command           | Description           |
-|-------------------|-----------------------|
-| HexokinaseToggle  | Toggle the colouring  |
-| HexokinaseRefresh | Refresh the colouring |
-
-## Configuration
-
-Which highlighters to use can be see with the following:
-
-```vim
-" Default for Vim
-let g:Hexokinase_highlighters = ['sign_column']
-
-" Default for Neovim
-let g:Hexokinase_highlighters = ['virtual']
-
-" All available highlighters
-let g:Hexokinase_highlighters = ['virtual', 'sign_column', 'background', 'foreground', 'foregroundfull']
-```
-
-The icon/text to display the highlighting can also be customized:
-
-```vim
-" Default virtual text
-let g:Hexokinase_virtualText = '■'
-
-" This is my personal setting
-let g:Hexokinase_virtualText = '██████'
-
-" Default sign column icon
-let g:Hexokinase_signIcon = '■'
-```
-
-You can customized which autocmd-events will trigger the highlighting to be refreshed.
-
-```vim
-" Default event to trigger and update
-let g:Hexokinase_refreshEvents = ['BufWritePost']
-
-" To make it almost live
-" This may cause some lag if there are a lot of colours in the file
-let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI']
-```
-
-The following will customize which filetypes will automatically enable the colouring
-
-```vim
-" Default is to not auto-enable for any filetype
-let g:Hexokinase_ftAutoload = []
-
-" Enable for all filetypes
-let g:Hexokinase_ftAutoload = ['*']
-
-" Enable for css and xml
-let g:Hexokinase_ftAutoload = ['css', 'xml']
-```
-
-The following will customize which builtin patterns you want `vim-hexokinase` to match
-
-```vim
-" This is the default value
-let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba']
-
-" All available builtin patterns
-let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba', 'colour_names']
-```
-
-For advanced customization, check the help docs for `hexokinase-highlighters` and `hexokinase-patterns`.
+- Golang must be installed, for more information visit https://golang.org/doc/install.
+    * Without Golang, a synchronous version of the plugin will still work, documentation can be found at `:h deprecated-hexokinase.txt`.
+- Currently, untested on Windows, help is welcomed.
 
 ## Installation
 
-This assumes you have the packages feature. If not, any plugin manager will suffice.
+1. Install Golang https://golang.org/doc/install
+2. Install the plugin with the plugin manager of choice and ensure `make hexokinase` is executed in the project root:
 
-### Neovim
+```vim
+" vim-plug
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
-```
-mkdir -p ~/.config/nvim/pack/plugins/start
-cd ~/.config/nvim/pack/plugins/start
-git clone https://github.com/RRethy/vim-hexokinase.git
+" minpac
+call minpac#add('rrethy/vim-hexokinase', { 'do': 'make hexokinase' })
+
+" etc.
 ```
 
-### Vim
+3. `:set termguicolors`
 
+## Quick Start
+
+Choose your method of highlighting:
+
+```vim
+" Neovim default
+let g:Hexokinase_highlighters = [ 'virtual' ]
+
+" Vim default
+let g:Hexokinase_highlighters = [ 'sign_column' ]
+
+" All possible highlighters
+let g:Hexokinase_highlighters = [
+\   'virtual',
+\   'sign_column',
+\   'background',
+\   'backgroundfull',
+\   'foreground',
+\   'foregroundfull'
+\ ]
 ```
-mkdir -p ~/.vim/pack/plugins/start
-cd ~/.vim/pack/plugins/start
-git clone https://github.com/RRethy/vim-hexokinase.git
+
+Choose which patterns are matched:
+
+```vim
+" Patterns to match for all filetypes
+let g:Hexokinase_optInPatterns = ['full_hex', 'rgb', 'rgba', 'colour_names']
+
+" All possible values
+let g:Hexokinase_optInPatterns = [
+\     'full_hex',
+\     'triple_hex',
+\     'rgb',
+\     'rgba',
+\     'hsl',
+\     'hsla',
+\     'colour_names'
+\ ]
+
+" Filetype specific patterns to match
+" entry value must be comma seperated list
+let g:Hexokinase_ftOptInPatterns = {
+\     'css': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
+\     'html': 'full_hex,rgb,rgba,hsl,hsla,colour_names'
+\ }
 ```
+
+Choose which filetypes to scrape automatically (by default ALL filetypes are scraped):
+
+```vim
+" Sample value, to keep default behaviour don't define this variable
+let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript']
+```
+
+## Commands
+
+| Command  | Description  |
+|---|---|
+| **HexokinaseToggle**  | Toggle the colouring  |
+| **HexokinaseTurnOn**  | Turn on colouring (refresh if already turned on) |
+| **HexokinaseTurnOff**  | Turn off colouring  |
+
+## Full Configuration
+
+See `:help hexokinase.txt`
+
+## Custom Patterns
+
+See `:help g:Hexokinase_palettes`.
+
+This can be used to colour specific variables.
 
 ## FAQ
 

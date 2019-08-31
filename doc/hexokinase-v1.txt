@@ -1,0 +1,227 @@
+*deprecated-hexokinase-v1.txt*  (Neo)Vim plugin for displaying the colour of hex codes,
+                   rgb, and rgba
+
+Author:  Adam P. Regasz-Rethy (RRethy) <rethy.spud@gmail.com>
+License: Same terms as Vim itself (see |license|)
+
+INTRODUCTION                                                     *deprecated-hexokinase*
+===========================================================================
+
+This documentation is for v1 of vim-hexokinase. To use v1, add the following
+to your .vimrc:
+>
+    let Hexokinase_v2 = 0
+
+Everything will work as it did previously, although, v1 has been deprecated.
+
+This plugin will display the colour of hex codes (both 6 and 3 digit), and
+rgb/rgba functions.
+
+It has currently two methods for displaying the colours, either in the sign
+column or as virtual text (Neovim exclusive).
+
+The plugin was built with extensibility in mind, almost everything can be
+customized or extended.
+
+Currently, due to the nature of the highlighters, only a single colour per
+line will be displayed. This can easily be changed with a custom highlighter,
+see |hexokinase-highlighters|.
+
+Note |'termguicolors'| must be turned on and your terminal must support it.
+
+COMMANDS                                                *deprecated-hexokinase-commands*
+===========================================================================
+
+ ----------------------+-------------------------------------------------
+ Command               | Description                                                                  ~
+ ----------------------+-------------------------------------------------
+  `HexokinaseToggle`     | Toggle the colouring
+  `HexokinaseRefresh`    | Refresh the colouring
+ ----------------------+-------------------------------------------------
+
+
+CONFIGURATION                                      deprecated-*hexokinase-configuration*
+===========================================================================
+
+Highlighters                                      *deprecated-g:Hexokinase_highlighters*
+
+                Type: |List| of |Strings|
+                How to display the colour.
+
+                Default value:
+                  Vim - sign_column for |'signcolumn'|
+                  Neovim - virtual for |nvim_buf_set_virtual_text()|
+
+                Possible values: >
+                  let g:Hexokinase_highlighters = [
+                  \   'virtual',
+                  \   'sign_column',
+                  \   'background',
+                  \   'foreground',
+                  \   'foregroundfull'
+                  \ ]
+
+Virtual text                                      *deprecated-g:Hexokinase_virtualText*
+
+                Type: |String|
+                Coloured Virtual Text to display
+
+                Default value: >
+                  let g:Hexokinase_virtualText = '■'
+
+Sign Column Icon                                     *deprecated-g:Hexokinase_signIcon*
+
+                Type: |String|
+                Coloured character to display in the |'signcolumn'|
+
+                Default value: >
+                  let g:Hexokinase_signIcon = '■'
+
+Refresh Events                                  *deprecated-g:Hexokinase_refreshEvents*
+
+                Type: |List| of |String|
+                Which |autocmd| events to refresh the colouring on.
+                If colouring is off, this will not turn it on.
+                This can be set to 'TextChanged' to get interesting results.
+                However, if there are a large number of colours in the
+                file, there will be noticible lag which is why the default is
+                'BufWritePost'.
+
+                Default value: >
+                  let g:Hexokinase_refreshEvents = ['BufWritePost']
+
+Auto Enabled FileTypes                             *deprecated-g:Hexokinase_ftAutoload*
+
+                Type: |List| of |String|
+                Which |filetype| to automatically turn on the colouring
+
+                Default value: >
+                  let g:Hexokinase_ftAutoload = []
+
+Silence Hexokinase                                     *deprecated-g:Hexokinase_silent*
+
+                Type: 0 or 1
+                Whether or not to echo a message when turning on/off the
+                highlighting
+
+                Default value: >
+                  let g:Hexokinase_silent = 0
+
+Opt-in Patterns                                 *deprecated-g:Hexokinase_optInPatterns*
+
+                Type: |List| of |String|
+                Which builtin patterns hexokinase should match.
+
+                Default value: >
+                  let g:Hexokinase_optInPatterns = [
+                        \ 'full_hex',
+                        \ 'triple_hex',
+                        \ 'rgb',
+                        \ 'rgba'
+                        \ ]
+<
+                Available values: >
+                  let g:Hexokinase_optInPatterns = [
+                        \ 'full_hex',
+                        \ 'triple_hex',
+                        \ 'rgb',
+                        \ 'rgba',
+                        \ 'colour_names'
+                        \ ]
+<
+
+
+CREATE HIGHLIGHTERS                                 *deprecated-hexokinase-highlighters*
+===========================================================================
+
+|hexokinase| was built with extensibility in mind. Currently the only
+supported highlighters are through the |'signcolumn'| and Neovim's Virtual
+Text feature. However, this can easily be extended. To extend you need two
+functions with the following signature (the name doesn't matter since it gets
+passed as a function reference below):
+
+highlight_callback({lnum}, {hex}, {hl_name}, {start}, {end})  *deprecated-hexokinase-highlight_callback*
+
+                {lnum} is an Integer while the line number of the colour
+                (indexed at 1), {lnum} may repeat if multiple matches are
+                found on the same line. {start} and {end} are the start and
+                end (respectively) of the matched colour. {start} is indexed
+                at 1 since it represents the column. {hex} is the hex for the
+                matched colour.  {hl_name} is the name of the highlight group
+                that was defined for the highlighting. By default, the
+                auto-generated highlight group will only set the value for
+                |highlight-guifg| and |highlight-ctermfg|, if you want the
+                background to change then you need to create your own
+                highlight group using {hex}.
+
+                This will get triggered when a match is found and would be
+                responsible for doing the work to display the match.
+
+                This gets setup using the following (note: the name of the
+                function doesn't matter since it is a function reference): >
+                  let g:Hexokinase_highlightCallbacks = [function('highlight_callback')]
+
+teardown_callback()                            *deprecated-hexokinase-teardown_callback*
+
+                This will get triggered when the highlighting is turned off by
+                the user. This would be the time to revert any UI changes that
+                were made in |hexokinase-highlight_callback|.
+
+                This gets setup using the following (note: the name of the
+                function doesn't matter since it is a function reference): >
+                  let g:Hexokinase_tearDownCallbacks = [function('teardown_callback')]
+
+
+CREATE PATTERNS                                         *deprecated-hexokinase-patterns*
+===========================================================================
+
+|hexokinase| was built with extensibility in mind. Currently the only
+supported patterns which get picked up are 6-digit hex codes, 3-digit hex
+codes, rgb functions, and rgba functions. However, this can easily be
+extended.
+
+To extend this, you must define the pattern to match. For example, the 3-digit
+hex code pattern is the following: >
+
+  let six_digit_hex_pat = '#\x\{3}'
+
+Then you need a function (seen below) to process the pattern and turn it into a 6-digit hex
+code which will then automatically be converted to a highlight groups and sent
+off to all available highlighters.
+
+process_pattern({match})                         *deprecated-hexokinase-process_pattern*
+
+                {match} is the text that matched the associated pattern.  It
+                must then convert {match} to a 6-digit hex code and return it
+                as a |String|.
+
+                If it is unable to convert it (due to perhaps a false
+                positive), then an empty string must be returned to signal
+                failure.
+
+                This gets setup using the following (note: the name of the
+                function doesn't matter since it is a function reference): >
+                  let g:Hexokinase_patterns = { '#\x\{3}': function('process_pattern') }
+
+                  " or for filetype specific patterns, you can do:
+                  let g:Hexokinase_ft_patterns = {
+                  \   'css' : {
+                  \     '#\x\{3}': function('process_pattern')
+                  \   }
+                  \ }
+
+
+A more complete example can be found here:
+https://github.com/RRethy/vim-hexokinase/issues/16.
+
+
+FAQ                                                         *deprecated-hexokinase-faq*
+===========================================================================
+
+Q: I'm seeing grey colours when I toggle vim-hexokinase
+
+A: You need `termguicolors` to be turned on. Verify `:set termguicolors?`
+outputs `1`.
+
+
+vim:tw=78:ts=8:ft=help:norl:

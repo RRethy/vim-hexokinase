@@ -26,6 +26,7 @@ fun! hexokinase#v2#scraper#on() abort
                     \ }
         let cmd = printf('%s -r -simplified -files=%s', g:Hexokinase_executable_path, tmpname)
         let cmd .= hexokinase#utils#getPatModifications()
+        let cmd .= ' -bg='.hexokinase#utils#get_background_hex()
         if !empty(g:Hexokinase_palettes)
             let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
         endif
@@ -77,15 +78,12 @@ endf
 
 fun! s:on_exit(id, status, event) abort dict
     call delete(self.tmpname)
+    call s:clear_hl(self.bufnr)
     if a:status
         return
     endif
-    call s:clear_hl(bufnr('%'))
-    for colour in self.colours
-        let hl_name = 'v2hexokinaseHighlight'.strpart(colour.hex, 1)
-        exe 'hi '.hl_name.' guifg='.colour.hex
-        for F in g:Hexokinase_highlightCallbacks
-            call F(self.bufnr, colour.lnum, colour.hex, hl_name, colour.start, colour.end)
-        endfor
+    call setbufvar(self.bufnr, 'hexokinase_colours', self.colours)
+    for F in g:Hexokinase_highlightCallbacks
+        call F(self.bufnr)
     endfor
 endf
