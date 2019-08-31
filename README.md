@@ -40,6 +40,10 @@ Colour can be displayed in each of the 6 six ways shown above, or can be customi
 
 **Note:** By default all filetypes are scraped and highlighted on `BufWrite` and `BufCreate`, see `:h g:Hexokinase_refreshEvents` for more info.
 
+## Migration for existing users
+
+See `:help hexokinase-v1-migration`
+
 ## Requirements
 
 - `:h 'termguicolors'` must be turned on and your terminal must support it
@@ -135,6 +139,8 @@ See `:help hexokinase.txt`
 ## Custom Patterns
 
 See `:help g:Hexokinase_palettes`.
+
+This can be used to colour specific variables.
 
 ## FAQ
 

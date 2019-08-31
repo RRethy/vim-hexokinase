@@ -10,6 +10,7 @@ CONTENTS                                                *hexokinase-contents*
 
 Introduction.................................|hexokinase-introduction|
 Quick Start..................................|hexokinase-quick-start|
+Migration for Existing Users.................|hexokinase-v1-migration|
 Installation.................................|hexokinase-installation|
 Commands.....................................|hexokinase-commands|
 Configuration................................|hexokinase-configuration|
@@ -33,9 +34,6 @@ FAQ..........................................|hexokinase-faq|
 
 INTRODUCTION                                        *hexokinase-introduction*
 ===========================================================================
-
-Note: If you are a previous user coming from v1, read
-|hexokinase-installation| and |hexokinase-v1-deprecation|.
 
 This plugin will display the colour which corresponds to text on the screen.
 
@@ -80,6 +78,13 @@ everything.
    |g:Hexokinase_highlighters|.
 3. Choose which patterns are matched, or stick with the default,
    |g:Hexokinase_optInPatterns| and |g:Hexokinase_ftOptInPatterns|.
+
+MIGRATION FOR EXISTING USERS                        *hexokinase-v1-migration*
+===========================================================================
+
+Read |hexokinase-installation| and |hexokinase-v1-deprecation|.
+
+Skimming the rest of the help doc would be beneficial but not required.
 
 INSTALLATION                                        *hexokinase-installation*
 ===========================================================================
@@ -355,6 +360,8 @@ Disabled FileTypes                                  *g:Hexokinase_ftDisabled*
 <
                 By Default, all filetypes are scraped.
 
+                Regex patterns are not supported.
+
                 This will override |g:Hexokinase_ftEnabled|.
                 This will be overridden by any use of |HexokinaseTurnOn|.
 
@@ -367,6 +374,8 @@ Enabled FileTypes                                    *g:Hexokinase_ftEnabled*
                 let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript']
 <
                 By Default, all filetypes are scraped.
+
+                Regex patterns are not supported.
 
                 An empty list means not filetypes are scraped automatically.
                 To scrape all filetypes automatically, simply don't define
