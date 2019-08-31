@@ -1,6 +1,6 @@
 .PHONY: hexokinase
 hexokinase:
-	git init && git submodule update && cd hexokinase/ && go build
+	git submodule init && git submodule update && cd hexokinase/ && go build
 
 .PHONY: clean
 clean:
