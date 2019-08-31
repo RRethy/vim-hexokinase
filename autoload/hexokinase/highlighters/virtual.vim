@@ -7,8 +7,7 @@ endif
 
 fun! hexokinase#highlighters#virtual#highlightv2(bufnr) abort
     for it in getbufvar(a:bufnr, 'hexokinase_colours', [])
-        let it['hlname'] = 'v2hexokinaseHighlight'.strpart(it.hex, 1)
-        exe 'hi '.it.hlname.' guifg='.it.hex
+        let it['hlname'] = hexokinase#utils#create_fg_hl(it.hex)
 
         call nvim_buf_set_virtual_text(
                     \   a:bufnr,

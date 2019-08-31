@@ -41,9 +41,7 @@ fun! hexokinase#highlighters#background#highlightv2(bufnr) abort
             let it['positions'] = [[it.lnum, it.start, it.end - it.start + 1]]
         endif
 
-        let it['hlname'] = 'v2hexokinaseHighlight'.strpart(it.hex, 1)
-        exe 'hi '.it.hlname.' guibg='.it.hex.' guifg=NONE'
-
+        let it['hlname'] = hexokinase#utils#create_bg_hl(it.hex)
         let it['bg_check'] = 1
     endfor
 

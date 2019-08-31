@@ -280,7 +280,7 @@ FileType Specific Patterns to Find             *g:Hexokinase_ftOptInPatterns*
                 Which patterns to look for for specific filetypes.
 
                 Default value: >
-                let g:Hexokinase_ftOptOutPatterns = {
+                let g:Hexokinase_ftOptInPatterns = {
                 \     'css': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
                 \     'html': 'full_hex,rgb,rgba,hsl,hsla,colour_names'
                 \ }
@@ -353,6 +353,8 @@ Disabled FileTypes                                  *g:Hexokinase_ftDisabled*
                 Default value: >
                     let g:Hexokinase_ftDisabled = []
 <
+                By Default, all filetypes are scraped.
+
                 This will override |g:Hexokinase_ftEnabled|.
                 This will be overridden by any use of |HexokinaseTurnOn|.
 
@@ -361,9 +363,15 @@ Enabled FileTypes                                    *g:Hexokinase_ftEnabled*
                 Type: |List| of |String|s
                 Which FileTypes to scrape automatically.
 
-                Default value: >
-                let g:Hexokinase_ftEnabled = []
+                Sample value: >
+                let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript']
 <
+                By Default, all filetypes are scraped.
+
+                An empty list means not filetypes are scraped automatically.
+                To scrape all filetypes automatically, simply don't define
+                this variable (also leave |g:Hexokinase_ftDisabled| empty).
+
                 This will be overriden by |g:Hexokinase_ftDisabled|.
 
 Background Colour for Alpha Calculations              *g:Hexokinase_alpha_bg*

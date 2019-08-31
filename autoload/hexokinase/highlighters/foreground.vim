@@ -41,9 +41,7 @@ fun! hexokinase#highlighters#foreground#highlightv2(bufnr) abort
             let it['positions'] = [[it.lnum, it.start, it.end - it.start + 1]]
         endif
 
-        let it['hlname'] = 'v2hexokinaseHighlight'.strpart(it.hex, 1)
-        exe 'hi '.it.hlname.' guifg='.it.hex
-
+        let it['hlname'] = hexokinase#utils#create_fg_hl(it.hex)
         let it['fg_check'] = 1
     endfor
 

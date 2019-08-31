@@ -42,7 +42,6 @@ fun! hexokinase#v2#setup() abort
 
     let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['BufWrite', 'BufRead'])
     let g:Hexokinase_ftDisabled = get(g:, 'Hexokinase_ftDisabled', [])
-    let g:Hexokinase_ftEnabled = get(g:, 'Hexokinase_ftEnabled', [])
 
     augroup hexokinase_autocmds
         autocmd!
@@ -62,7 +61,7 @@ fun! s:on_refresh_event() abort
         if index(g:Hexokinase_ftDisabled, &filetype) > -1
             return
         endif
-    elseif !empty(g:Hexokinase_ftEnabled)
+    elseif has_key(g:, 'Hexokinase_ftEnabled')
         if index(g:Hexokinase_ftEnabled, &filetype) == -1
             return
         endif

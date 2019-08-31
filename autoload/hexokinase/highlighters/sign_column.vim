@@ -1,8 +1,7 @@
 fun! hexokinase#highlighters#sign_column#highlightv2(bufnr) abort
     let b:sign_ids = get(b:, 'sign_ids', [])
     for it in getbufvar(a:bufnr, 'hexokinase_colours', [])
-        let it['hlname'] = 'v2hexokinaseHighlight'.strpart(it.hex, 1)
-        exe 'hi '.it.hlname.' guifg='.it.hex
+        let it['hlname'] = hexokinase#utils#create_fg_hl(it.hex)
 
         let sign_name = it.hlname . 'sign'
         let sign_id = 4000 + it.lnum
