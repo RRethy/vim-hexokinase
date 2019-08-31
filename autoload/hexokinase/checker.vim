@@ -1,3 +1,5 @@
+" Experimental and unused currently
+
 fun! hexokinase#checker#check() abort
     call s:cancel_cur_job()
 

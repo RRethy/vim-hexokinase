@@ -1,3 +1,5 @@
+" This file is for v1, v2 is all in the subdirectories
+
 fun! hexokinase#toggle_scraping() abort
     let b:hexokinase_scraper_on = !get(b:, 'hexokinase_scraper_on', 0)
     let g:Hexokinase_silent = get(g:, 'Hexokinase_silent', 0)
