@@ -26,6 +26,7 @@ Configuration................................|hexokinase-configuration|
     Disabled FileTypes.......................|g:Hexokinase_ftDisabled|
     Enabled FileTypes........................|g:Hexokinase_ftEnabled|
     Background Colour for Alpha Calculations.|g:Hexokinase_alpha_bg|
+    Use word Boundary........................|g:Hexokinase_checkBoundary|
 Create Custom Highlighters...................|hexokinase-custom-highlighters|
     Highlight Callback.......................|hexokinase-highlight_callback|
     Teardown Callback........................|hexokinase-teardown_callback|
@@ -407,8 +408,8 @@ Use word Boundary                                *g:Hexokinase_checkBoundary*
                 Default value: >
                 let g:Hexokinase_checkBoundary = 0
 <
-                Currently only applies to hex codes. Setting this to 1 will
-                cause the following: >
+                Currently only applies to hex codes and web colours. Setting
+                this to 1 will cause the following: >
                 " not a match
                 not#a#match#ffffff
 
@@ -417,6 +418,9 @@ Use word Boundary                                *g:Hexokinase_checkBoundary*
 
                 " will match only #aaaaaa
                 #aaaaaa#ffffff#000000
+
+                " will match pink but not blue or red
+                redblue pink
 <
 CREATE CUSTOM HIGHLIGHTERS                   *hexokinase-custom-highlighters*
 ===========================================================================
