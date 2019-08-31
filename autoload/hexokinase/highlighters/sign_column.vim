@@ -13,6 +13,10 @@ fun! hexokinase#highlighters#sign_column#highlightv2(bufnr) abort
 endf
 
 fun! hexokinase#highlighters#sign_column#tearDownv2(bufnr) abort
+    if !bufexists(a:bufnr)
+        return
+    endif
+
     let b:sign_ids = get(b:, 'sign_ids', [])
     for sign_id in b:sign_ids
         exe 'sign unplace ' . sign_id . ' buffer=' . a:bufnr

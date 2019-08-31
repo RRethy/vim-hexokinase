@@ -20,6 +20,10 @@ fun! hexokinase#highlighters#virtual#highlightv2(bufnr) abort
 endf
 
 fun! hexokinase#highlighters#virtual#tearDownv2(bufnr) abort
+    if !bufexists(a:bufnr)
+        return
+    endif
+
     if exists('*nvim_buf_clear_namespace')
         call nvim_buf_clear_namespace(a:bufnr, s:namespace, 0, -1)
     endif
