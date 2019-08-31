@@ -30,6 +30,9 @@ fun! hexokinase#v2#scraper#on() abort
         if !empty(g:Hexokinase_palettes)
             let cmd .= ' -palettes='.join(g:Hexokinase_palettes, ',')
         endif
+        if get(g:, 'Hexokinase_checkBoundary', 0)
+            let cmd .= ' -boundary'
+        endif
 
         let b:hexokinase_job_id = jobstart(cmd, opts)
     endif

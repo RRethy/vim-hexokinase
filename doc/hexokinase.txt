@@ -397,6 +397,27 @@ Background Colour for Alpha Calculations              *g:Hexokinase_alpha_bg*
 
                 Note: This MUST be a valid 6 digit hex. Such as `#ffffff`.
 
+Use word Boundary                                *g:Hexokinase_checkBoundary*
+
+                EXPERIMENTAL
+
+                Type: 1 or 0
+                Whether or not to discard matches which are not words.
+
+                Default value: >
+                let g:Hexokinase_checkBoundary = 0
+<
+                Currently only applies to hex codes. Setting this to 1 will
+                cause the following: >
+                " not a match
+                not#a#match#ffffff
+
+                " not a match
+                #fffffffail
+
+                " will match only #aaaaaa
+                #aaaaaa#ffffff#000000
+<
 CREATE CUSTOM HIGHLIGHTERS                   *hexokinase-custom-highlighters*
 ===========================================================================
 
