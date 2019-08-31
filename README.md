@@ -1,6 +1,6 @@
 # vim-hexokinase
 
-(Neo)Vim plugin for displaying the colour of 6-digit hex codes, 3-digit hex codes, rgb, and rgba functions, and optionally web colours
+(Neo)Vim plugin for asynchronously displaying the colours in the file (#rrggbb, #rgb, rgb(a)? functions, hsl(a)? functions, web colours, custom patterns)
 
 > let g:Hexokinase_highlighters = ['virtual']
 
