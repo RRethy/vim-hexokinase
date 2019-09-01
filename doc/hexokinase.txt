@@ -103,6 +103,9 @@ Or alternatively, leverage your plugin manager to run `make hexokinase` on updat
     " minpac
     call minpac#add('rrethy/vim-hexokinase', { 'do': 'make hexokinase' })
 
+    " dein
+    call dein#add('rrethy/vim-hexokinase', { 'build': 'make hexokinase' })
+
     " etc.
 <
 |'termguicolors'| must be turned on and your terminal must support it.

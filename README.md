@@ -65,6 +65,9 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " minpac
 call minpac#add('rrethy/vim-hexokinase', { 'do': 'make hexokinase' })
 
+" dein
+call dein#add('rrethy/vim-hexokinase', { 'build': 'make hexokinase' })
+
 " etc.
 ```
 
