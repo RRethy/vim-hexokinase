@@ -1,6 +1,6 @@
 " hexokinase.(n)vim - (Neo)Vim plugin for colouring hex codes
 " Maintainer: Adam P. Regasz-Rethy (RRethy) <rethy.spud@gmail.com>
-" Vertion 0.1
+" Vertion 2.0
 
 if exists('g:loaded_hexokinase')
     finish
