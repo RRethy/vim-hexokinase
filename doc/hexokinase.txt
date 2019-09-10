@@ -403,13 +403,13 @@ Background Colour for Alpha Calculations              *g:Hexokinase_alpha_bg*
 
 Use word Boundary                                *g:Hexokinase_checkBoundary*
 
-                EXPERIMENTAL
-
                 Type: 1 or 0
-                Whether or not to discard matches which are not words.
+                Whether or not to discard matches which are not words. If you
+                want absolutely everything to be highlighted regardless of
+                context, then turn this off.
 
                 Default value: >
-                let g:Hexokinase_checkBoundary = 0
+                let g:Hexokinase_checkBoundary = 1
 <
                 Currently only applies to hex codes and web colours. Setting
                 this to 1 will cause the following: >
