@@ -4,8 +4,8 @@ blue red pink orange yellow
 
 #8f0 #ff0 #f80 #f00 #f08
 
-#80fc00 #00f900 #08f900
-#0ff900 #0f8900 #0f0900
+#ffffff #00f900 #08f900
+#0f8900 #0f0900
 #8f0900 #ff0900 #8f0900
 
 rgba(100%,0%,0%,1.0)       rgba(255,0,0,0.5)

@@ -2,9 +2,11 @@ This file lists various colors, for testing the supported color syntax
 
 blue
 
-#fff
+#fffffff
 
+#fff
 #000000   #333333   #666666
+#ffffff
 #999999   #cccccc   #ffffff
 #000000ff #333333ff #666666ff
 #999999ff #ccccccff #ffffffff

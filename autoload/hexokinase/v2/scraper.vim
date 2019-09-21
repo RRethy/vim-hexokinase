@@ -1,3 +1,6 @@
+" Used for Vim because it has a shit api
+let s:chan_infos = {}
+
 fun! hexokinase#v2#scraper#toggle() abort
     let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
     if b:hexokinase_is_on
@@ -16,14 +19,21 @@ fun! hexokinase#v2#scraper#on() abort
     if fail
         let b:hexokinase_is_on = 0
     else
-        let opts = {
-                    \ 'tmpname': tmpname,
-                    \ 'on_stdout': function('s:on_stdout'),
-                    \ 'on_stderr': function('s:on_stderr'),
-                    \ 'on_exit': function('s:on_exit'),
-                    \ 'bufnr': bufnr('%'),
-                    \ 'colours': []
-                    \ }
+        if has('nvim')
+            let opts = {
+                        \ 'tmpname': tmpname,
+                        \ 'on_stdout': function('s:on_stdout'),
+                        \ 'on_stderr': function('s:on_stderr'),
+                        \ 'on_exit': function('s:on_exit'),
+                        \ 'bufnr': bufnr('%'),
+                        \ 'colours': []
+                        \ }
+        else
+            let opts = {
+                        \ 'out_cb': function('s:on_stdout_vim'),
+                        \ 'close_cb': function('s:on_exit_vim'),
+                        \ }
+        endif
         let cmd = printf('%s -r -simplified -files=%s', g:Hexokinase_executable_path, tmpname)
         let cmd .= hexokinase#utils#getPatModifications()
         let cmd .= ' -bg='.hexokinase#utils#get_background_hex()
@@ -34,7 +44,16 @@ fun! hexokinase#v2#scraper#on() abort
             let cmd .= ' -boundary'
         endif
 
-        let b:hexokinase_job_id = jobstart(cmd, opts)
+        if has('nvim')
+            let b:hexokinase_job_id = jobstart(cmd, opts)
+        else
+            let b:hexokinase_job = job_start(cmd, opts)
+            let s:chan_infos[ch_info(job_getchannel(b:hexokinase_job)).id] = {
+                        \     'tmpname': tmpname,
+                        \     'colours': [],
+                        \     'bufnr': bufnr('%')
+                        \ }
+        endif
     endif
 endf
 
@@ -51,23 +70,40 @@ fun! s:clear_hl(bufnr) abort
 endf
 
 fun! s:cancel_cur_job() abort
-    let b:hexokinase_job_id = get(b:, 'hexokinase_job_id', -1)
     try
-        call chanclose(b:hexokinase_job_id)
-    catch /E900/
+        if has('nvim')
+            let b:hexokinase_job_id = get(b:, 'hexokinase_job_id', -1)
+            call chanclose(b:hexokinase_job_id)
+        else
+            if has_key(b:, 'hexokinase_job')
+                call ch_close(b:hexokinase_job)
+            endif
+        endif
+    catch /E90[06]/
     endtry
+endf
+
+fun! s:on_stdout_vim(chan, line) abort
+    let colour = s:parse_colour(a:line)
+    if !empty(colour)
+        call add(s:chan_infos[ch_info(a:chan).id].colours, colour)
+    endif
+endf
+
+fun! s:on_exit_vim(chan) abort
+    let info = s:chan_infos[ch_info(a:chan).id]
+    call delete(info.tmpname)
+    call s:clear_hl(info.bufnr)
+    call setbufvar(info.bufnr, 'hexokinase_colours', info.colours)
+    for F in g:Hexokinase_highlightCallbacks
+        call F(info.bufnr)
+    endfor
 endf
 
 fun! s:on_stdout(id, data, event) abort dict
     for line in a:data
-        let parts = split(line, ':')
-        if len(parts) == 4
-            let colour = {
-                        \ 'lnum': parts[1],
-                        \ 'start': split(parts[2], '-')[0],
-                        \ 'end': split(parts[2], '-')[1],
-                        \ 'hex': parts[3]
-                        \ }
+        let colour = s:parse_colour(line)
+        if !empty(colour)
             call add(self.colours, colour)
         endif
     endfor
@@ -89,4 +125,17 @@ fun! s:on_exit(id, status, event) abort dict
     for F in g:Hexokinase_highlightCallbacks
         call F(self.bufnr)
     endfor
+endf
+
+fun! s:parse_colour(line) abort
+    let parts = split(a:line, ':')
+    if len(parts) != 4
+        return ''
+    endif
+
+    return { 'lnum': parts[1],
+                \ 'start': split(parts[2], '-')[0],
+                \ 'end': split(parts[2], '-')[1],
+                \ 'hex': parts[3]
+                \ }
 endf
