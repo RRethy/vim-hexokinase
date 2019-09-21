@@ -9,10 +9,14 @@ endif
 let g:loaded_hexokinase = 1
 
 let g:Hexokinase_executable_path = expand('<sfile>:h:h').'/hexokinase/hexokinase'
-let g:Hexokinase_v2 = get(g:, 'Hexokinase_v2', executable(g:Hexokinase_executable_path))
+let g:Hexokinase_v2 = get(g:, 'Hexokinase_v2', 1)
 
 if g:Hexokinase_v2
-    call hexokinase#v2#setup()
+    if executable(g:Hexokinase_executable_path)
+        call hexokinase#v2#setup()
+    else
+        echohl Error | echom 'vim-hexokinase needs updating. Run `make hexokinase` in project root. See `:h hexokinase-v1-migration` for more info.' | echohl None
+    endif
 else
     call hexokinase#v1#setup()
 endif

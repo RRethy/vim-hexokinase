@@ -85,6 +85,11 @@ MIGRATION FOR EXISTING USERS                        *hexokinase-v1-migration*
 
 Read |hexokinase-installation| and |hexokinase-v1-deprecation|.
 
+You can force vim-hexokinase to return to v1 behaviour with: >
+    let g:Hexokinase_v2 = 0
+<
+But trust me, v2 is worth it.
+
 Skimming the rest of the help doc would be beneficial but not required.
 
 INSTALLATION                                        *hexokinase-installation*
@@ -406,14 +411,14 @@ Use word Boundary                                *g:Hexokinase_checkBoundary*
                 Type: 1 or 0
                 Whether or not to discard matches which are not words. If you
                 want absolutely everything to be highlighted regardless of
-                context, then turn this off.
+                context, then turn this off. This will reduce false positives.
 
                 Default value: >
                 let g:Hexokinase_checkBoundary = 1
 <
                 Currently only applies to hex codes and web colours. Setting
                 this to 1 will cause the following: >
-                " not a match
+                " not a match for any colour
                 not#a#match#ffffff
 
                 " not a match
