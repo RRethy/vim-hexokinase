@@ -1,0 +1,3 @@
+[submodule "hexokinase"]
+	path = hexokinase
+	url = https://github.com/RRethy/hexokinase.git
