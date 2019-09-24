@@ -14,6 +14,7 @@ fun! hexokinase#v2#scraper#on() abort
     call s:cancel_cur_job()
 
     let b:hexokinase_is_on = 1
+    let b:hexokinase_is_disabled = 0
     let tmpname = hexokinase#utils#tmpname()
     let fail = writefile(getbufline(bufnr('%'), 1, '$'), tmpname)
     if fail
@@ -59,6 +60,7 @@ endf
 
 fun! hexokinase#v2#scraper#off() abort
     let b:hexokinase_is_on = 0
+    let b:hexokinase_is_disabled = 1
     call s:cancel_cur_job()
     call s:clear_hl(bufnr('%'))
 endf

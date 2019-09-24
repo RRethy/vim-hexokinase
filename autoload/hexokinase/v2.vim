@@ -52,8 +52,13 @@ endf
 
 fun! s:on_refresh_event() abort
     let b:hexokinase_is_on = get(b:, 'hexokinase_is_on', 0)
+    let b:hexokinase_is_disabled = get(b:, 'hexokinase_is_disabled', 0)
     if b:hexokinase_is_on
         call hexokinase#v2#scraper#on()
+        return
+    endif
+
+    if b:hexokinase_is_disabled
         return
     endif
 
