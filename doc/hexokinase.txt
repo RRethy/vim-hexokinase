@@ -238,7 +238,7 @@ Patterns To Find                                 *g:Hexokinase_optInPatterns*
                 Which patterns to look for.
 
                 Default value: >
-                let g:Hexokinase_optInPatterns = [ 'full_hex' ]
+                let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla,colour_names'
 <
 
                 Possible values: >
@@ -294,10 +294,7 @@ FileType Specific Patterns to Find             *g:Hexokinase_ftOptInPatterns*
                 Which patterns to look for for specific filetypes.
 
                 Default value: >
-                let g:Hexokinase_ftOptInPatterns = {
-                \     'css': 'full_hex,rgb,rgba,hsl,hsla,colour_names',
-                \     'html': 'full_hex,rgb,rgba,hsl,hsla,colour_names'
-                \ }
+                let g:Hexokinase_ftOptInPatterns = {}
 <
                 This option can be overridden by other configuration, this is
                 the relevant precedence order:

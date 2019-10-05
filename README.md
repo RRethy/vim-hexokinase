@@ -99,7 +99,9 @@ Choose which patterns are matched:
 
 ```vim
 " Patterns to match for all filetypes
-let g:Hexokinase_optInPatterns = ['full_hex', 'rgb', 'rgba', 'colour_names']
+" Can be a comma separated string or a list of strings
+" Default value:
+let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla,colour_names'
 
 " All possible values
 let g:Hexokinase_optInPatterns = [
