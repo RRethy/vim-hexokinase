@@ -22,7 +22,7 @@ Configuration................................|hexokinase-configuration|
     FileType Specific Patterns to Ignore.....|g:Hexokinase_ftOptOutPatterns|
     Virtual Text.............................|g:Hexokinase_virtualText|
     Sign Column Icon.........................|g:Hexokinase_signIcon|
-    Refresh Events...........................|g:Hexokinase_refeshEvents|
+    Refresh Events...........................|g:Hexokinase_refreshEvents|
     Disabled FileTypes.......................|g:Hexokinase_ftDisabled|
     Enabled FileTypes........................|g:Hexokinase_ftEnabled|
     Background Colour for Alpha Calculations.|g:Hexokinase_alpha_bg|
@@ -343,13 +343,13 @@ Sign Column Icon                                      *g:Hexokinase_signIcon*
                 Note: Highlighting is done on the foreground of what is
                 passed, so spaces will not work, instead use "█".
 
-Refresh Events                                    *g:Hexokinase_refeshEvents*
+Refresh Events                                    *g:Hexokinase_refreshEvents*
 
                 Type: |List| of |String|s
                 Which |autocmd-events| trigger a refresh of highlighting.
 
                 Default value: >
-                let g:Hexokinase_refeshEvents = ['BufWrite', 'BufCreate']
+                let g:Hexokinase_refreshEvents = ['BufWrite', 'BufCreate']
 <
                 Since the scraping is done asynchronously and no more than a
                 single scraping job is started per buffer, you can use more
