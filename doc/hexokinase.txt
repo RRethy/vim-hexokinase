@@ -1,4 +1,4 @@
-*hexokinase.txt*  Neovim plugin for asynchronously displaying the colour of
+*hexokinase.txt*  (Neo)Vim plugin for asynchronously displaying the colour of
                 hex codes, rgb(a)? functions, hsl(a)? functions, web
                 colours, and custom patterns
 
@@ -65,8 +65,6 @@ background colour of the text (there are also two different types of
 background colouring). See |g:Hexokinase_highlighters| for more information.
 
 Note: |'termguicolors'| must be turned on and your terminal must support it.
-
-Note: Vim async support is experimental.
 
 QUICK START                                          *hexokinase-quick-start*
 ===========================================================================
