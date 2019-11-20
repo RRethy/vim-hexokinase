@@ -1,11 +1,13 @@
 let s:group_prefix = 'hexokinase-sign_column'
 
 fun! s:signs_api_hl(bufnr) abort
+    let n = 0
     for it in getbufvar(a:bufnr, 'hexokinase_colours', [])
         let it['hlname'] = hexokinase#utils#create_fg_hl(it.hex)
 
         let sign_name = it.hlname . 'sign'
-        let sign_id = 4000 + it.lnum
+        let sign_id = 4000 + n
+        let n += 1
         call sign_define(sign_name,
                     \     {
                     \         'text': g:Hexokinase_signIcon,

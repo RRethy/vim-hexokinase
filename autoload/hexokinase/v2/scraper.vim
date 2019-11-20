@@ -35,7 +35,13 @@ fun! hexokinase#v2#scraper#on() abort
                         \ 'close_cb': function('s:on_exit_vim'),
                         \ }
         endif
-        let cmd = printf('%s -r -simplified -files=%s', g:Hexokinase_executable_path, tmpname)
+        let cmd = printf('%s -simplified -files=%s', g:Hexokinase_executable_path, tmpname)
+        " Neovim has multiple sign columns, in which case we don't want a
+        " reversed output.
+        if index(g:Hexokinase_highlighters, 'sign_column') == -1
+                    \ || &signcolumn !~# '\v(auto|yes):[2-9]'
+            let cmd .= ' -r'
+        endif
         let cmd .= hexokinase#utils#getPatModifications()
         let cmd .= ' -bg='.hexokinase#utils#get_background_hex()
         if !empty(g:Hexokinase_palettes)

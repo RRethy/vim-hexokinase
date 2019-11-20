@@ -1,6 +1,6 @@
 This file lists various colors, for testing the supported color syntax
 
-blue
+green red blue
 
 #fffffff
 
