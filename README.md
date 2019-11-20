@@ -9,7 +9,7 @@ The fastest (Neo)Vim plugin for asynchronously displaying the colours in the fil
 > let g:Hexokinase_highlighters = ['sign_column']
 
 ![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
-<img src="https://user-images.githubusercontent.com/21000943/69205390-cfff7480-0b17-11ea-9130-4087e9ae152c.png" width="520" height="342">
+<img src="https://user-images.githubusercontent.com/21000943/69205914-4e104b00-0b19-11ea-8c36-4037d798810d.png" width="520" height="342">
 
 > let g:Hexokinase_highlighters = ['foreground']
 
