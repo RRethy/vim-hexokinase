@@ -1,6 +1,6 @@
 # vim-hexokinase
 
-Faster than the fastest (Neo)Vim plugin for asynchronously displaying the colours in the file (#rrggbb, #rgb, rgb(a)? functions, hsl(a)? functions, web colours, custom patterns)
+The fastest (Neo)Vim plugin for asynchronously displaying the colours in the file (#rrggbb, #rgb, rgb(a)? functions, hsl(a)? functions, web colours, custom patterns)
 
 > let g:Hexokinase_highlighters = ['virtual']
 
@@ -9,22 +9,23 @@ Faster than the fastest (Neo)Vim plugin for asynchronously displaying the colour
 > let g:Hexokinase_highlighters = ['sign_column']
 
 ![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
+<img src="https://user-images.githubusercontent.com/21000943/69205390-cfff7480-0b17-11ea-9130-4087e9ae152c.png" width="520" height="342">
 
 > let g:Hexokinase_highlighters = ['foreground']
 
-![pic](https://user-images.githubusercontent.com/21000943/64053823-2c26ae00-cb52-11e9-869a-f8ddfe797196.png)
+<img src="https://user-images.githubusercontent.com/21000943/64053823-2c26ae00-cb52-11e9-869a-f8ddfe797196.png" width="520" height="342">
 
 > let g:Hexokinase_highlighters = ['foregroundfull']
 
-![pic](https://user-images.githubusercontent.com/21000943/64053892-6e4fef80-cb52-11e9-8c81-31a785c7503e.png)
+<img src="https://user-images.githubusercontent.com/21000943/64053892-6e4fef80-cb52-11e9-8c81-31a785c7503e.png" width="520" height="342">
 
 > let g:Hexokinase_highlighters = ['background']
 
-![pic](https://user-images.githubusercontent.com/21000943/64057174-bb8a8c00-cb67-11e9-99b9-66f8eba00c65.png)
+<img src="https://user-images.githubusercontent.com/21000943/64057174-bb8a8c00-cb67-11e9-99b9-66f8eba00c65.png" width="520" height="342">
 
 > let g:Hexokinase_highlighters = ['backgroundfull']
 
-![pic](https://user-images.githubusercontent.com/21000943/64057161-91d16500-cb67-11e9-83ab-535ad2489c5a.png)
+<img src="https://user-images.githubusercontent.com/21000943/64057161-91d16500-cb67-11e9-83ab-535ad2489c5a.png" width="520" height="342">
 
 ## Rationale
 
