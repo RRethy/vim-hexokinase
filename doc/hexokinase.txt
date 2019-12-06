@@ -169,7 +169,10 @@ Highlighters                                      *g:Hexokinase_highlighters*
                 displayed.
 
                 "sign_column" will use the |'sign_column'| to display the
-                colour. However, only one colour per line can be displayed.
+                colour. In vim, only one colour per line can be displayed.
+                If you are using Neovim 0.4 or newer that supports multiple
+                sign columns, the number of colors will respect your 
+                |'sign_column'| settings.
 
                 "background" will highlight the background of certain
                 characters, such as the parenthesis of various functions or
