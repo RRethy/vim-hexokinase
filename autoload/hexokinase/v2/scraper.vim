@@ -39,6 +39,7 @@ fun! hexokinase#v2#scraper#on() abort
         " Neovim has multiple sign columns, in which case we don't want a
         " reversed output.
         if get(g:, 'Hexokinase_prioritizeHead', 1)
+                    \ && get(b:, 'Hexokinase_prioritizeHead', 1)
                     \ && (index(g:Hexokinase_highlighters, 'sign_column') == -1
                     \ || &signcolumn !~# '\v(auto|yes):[2-9]')
             let cmd .= ' -r'
