@@ -38,8 +38,9 @@ fun! hexokinase#v2#scraper#on() abort
         let cmd = printf('%s -simplified -files=%s', g:Hexokinase_executable_path, tmpname)
         " Neovim has multiple sign columns, in which case we don't want a
         " reversed output.
-        if index(g:Hexokinase_highlighters, 'sign_column') == -1
-                    \ || &signcolumn !~# '\v(auto|yes):[2-9]'
+        if get(g:, 'Hexokinase_prioritizeHead', 1)
+                    \ && (index(g:Hexokinase_highlighters, 'sign_column') == -1
+                    \ || &signcolumn !~# '\v(auto|yes):[2-9]')
             let cmd .= ' -r'
         endif
         let cmd .= hexokinase#utils#getPatModifications()
