@@ -352,7 +352,7 @@ Refresh Events                                    *g:Hexokinase_refreshEvents*
                 Which |autocmd-events| trigger a refresh of highlighting.
 
                 Default value: >
-                let g:Hexokinase_refreshEvents = ['BufWrite', 'BufCreate']
+                let g:Hexokinase_refreshEvents = ['BufWrite', 'BufRead']
 <
                 Since the scraping is done asynchronously and no more than a
                 single scraping job is started per buffer, you can use more
