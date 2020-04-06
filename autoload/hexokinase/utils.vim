@@ -143,7 +143,7 @@ fun! hexokinase#utils#create_fg_hl(hex) abort
 endf
 
 fun! hexokinase#utils#create_bg_hl(hex) abort
-    let hlname = 'v2hexokinaseHighlight'.strpart(a:hex, 1)
+    let hlname = 'v2hexokinaseHighlight_withfg'.strpart(a:hex, 1)
     let [r, g, b] = hexokinase#utils#hex_to_rgb(a:hex)
     " This calculation is from the following:
     " https://www.w3.org/TR/WCAG20/#relativeluminancedef
