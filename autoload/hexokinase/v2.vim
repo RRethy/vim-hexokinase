@@ -39,6 +39,7 @@ fun! hexokinase#v2#setup() abort
 
     let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['BufWrite', 'BufRead'])
     let g:Hexokinase_ftDisabled = get(g:, 'Hexokinase_ftDisabled', [])
+    let g:Hexokinase_termDisabled = get(g:, 'Hexokinase_termDisabled', 0)
 
     augroup hexokinase_autocmds
         autocmd!
@@ -56,6 +57,10 @@ fun! s:on_refresh_event() abort
     endif
 
     if b:hexokinase_is_disabled
+        return
+    endif
+
+    if g:Hexokinase_termDisabled && &buftype ==# 'terminal'
         return
     endif
 
