@@ -23,6 +23,7 @@ Configuration................................|hexokinase-configuration|
     Virtual Text.............................|g:Hexokinase_virtualText|
     Sign Column Icon.........................|g:Hexokinase_signIcon|
     Refresh Events...........................|g:Hexokinase_refreshEvents|
+    Disabled TerminalBuffers.................|g:Hexokinase_termDisabled|
     Disabled FileTypes.......................|g:Hexokinase_ftDisabled|
     Enabled FileTypes........................|g:Hexokinase_ftEnabled|
     Background Colour for Alpha Calculations.|g:Hexokinase_alpha_bg|
@@ -358,6 +359,17 @@ Refresh Events                                    *g:Hexokinase_refreshEvents*
                 single scraping job is started per buffer, you can use more
                 aggressive |autocmd-events|. For live updating you could use
                 ['TextChanged', 'InsertLeave'].
+
+Disabled TerminalBuffers                            *g:Hexokinase_termDisabled*
+
+                Type: |Integer| 
+                Do not scraped any terminal buffers.
+
+                Default value: >
+                    let g:Hexokinase_termDisabled = 0
+<
+                By Default, all terminal buffers are scraped.
+
 
 Disabled FileTypes                                  *g:Hexokinase_ftDisabled*
 
