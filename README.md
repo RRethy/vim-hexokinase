@@ -9,6 +9,9 @@ The fastest (Neo)Vim plugin for asynchronously displaying the colours in the fil
 > let g:Hexokinase_highlighters = ['sign_column']
 
 ![gif](https://media.giphy.com/media/5kFmgYX1mF7l25BnYe/giphy.gif)
+
+> set signcolumn=yes:9 " Neovim only
+
 <img src="https://user-images.githubusercontent.com/21000943/69205914-4e104b00-0b19-11ea-8c36-4037d798810d.png" width="520" height="342">
 
 > let g:Hexokinase_highlighters = ['foreground']
@@ -40,10 +43,6 @@ This plugin can display the colour of 6 digit hex codes, 3 digit hex codes, rgb 
 Colour can be displayed in each of the 6 six ways shown above, or can be customized to display colour any way the user chooses.
 
 **Note:** By default all filetypes are scraped and highlighted on `BufWrite` and `BufCreate`, see `:h g:Hexokinase_refreshEvents` for more info.
-
-## Migration for existing users
-
-See `:help hexokinase-v1-migration`
 
 ## Requirements
 
