@@ -13,7 +13,7 @@ fun! hexokinase#highlighters#virtual#highlightv2(bufnr) abort
                     \   a:bufnr,
                     \   s:namespace,
                     \   it.lnum - 1,
-                    \   nvim_buf_get_virtual_text(a:bufnr, it.lnum - 1) + [[g:Hexokinase_virtualText, it.hlname]],
+                    \   [[g:Hexokinase_virtualText, it.hlname]],
                     \   {}
                     \ )
     endfor
