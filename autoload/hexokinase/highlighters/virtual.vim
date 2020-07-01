@@ -9,11 +9,15 @@ fun! hexokinase#highlighters#virtual#highlightv2(bufnr) abort
     for it in getbufvar(a:bufnr, 'hexokinase_colours', [])
         let it['hlname'] = hexokinase#utils#create_fg_hl(it.hex)
 
+        let chunks = [[g:Hexokinase_virtualText, it.hlname]]
+        if exists('*nvim_buf_get_virtual_text')
+            let chunks += nvim_buf_get_virtual_text(a:bufnr, it.lnum - 1)
+        endif
         call nvim_buf_set_virtual_text(
                     \   a:bufnr,
                     \   s:namespace,
                     \   it.lnum - 1,
-                    \   [[g:Hexokinase_virtualText, it.hlname]],
+                    \   chunks,
                     \   {}
                     \ )
     endfor
@@ -31,11 +35,15 @@ endf
 
 fun! hexokinase#highlighters#virtual#highlight(lnum, hex, hl_name, start, end) abort
     if exists('*nvim_buf_set_virtual_text')
+        let chunks = [[g:Hexokinase_virtualText, a:hl_name]]
+        if exists('*nvim_buf_get_virtual_text')
+            let chunks += nvim_buf_get_virtual_text(bufnr('%'), a:lnum - 1)
+        endif
         call nvim_buf_set_virtual_text(
                     \   bufnr('%'),
                     \   s:namespace,
                     \   a:lnum - 1,
-                    \   [[g:Hexokinase_virtualText, a:hl_name]],
+                    \   chunks,
                     \   {}
                     \ )
     endif

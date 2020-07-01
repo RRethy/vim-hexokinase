@@ -40,8 +40,7 @@ fun! hexokinase#v2#scraper#on() abort
         " reversed output.
         if get(g:, 'Hexokinase_prioritizeHead', 1)
                     \ && get(b:, 'Hexokinase_prioritizeHead', 1)
-                    \ && (index(g:Hexokinase_highlighters, 'sign_column') == -1
-                    \ || &signcolumn !~# '\v(auto|yes):[2-9]')
+                    \ && (index(g:Hexokinase_highlighters, 'sign_column') == -1 || &signcolumn !~# '\v(auto|yes):[2-9]')
             let cmd .= ' -r'
         endif
         let cmd .= hexokinase#utils#getPatModifications()
