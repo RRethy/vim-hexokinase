@@ -35,7 +35,7 @@ fun! hexokinase#highlighters#virtual#highlight(lnum, hex, hl_name, start, end) a
                     \   bufnr('%'),
                     \   s:namespace,
                     \   a:lnum - 1,
-                    \   nvim_buf_get_virtual_text(bufnr('%'), a:lnum - 1) + [[g:Hexokinase_virtualText, a:hl_name]],
+                    \   [[g:Hexokinase_virtualText, a:hl_name]],
                     \   {}
                     \ )
     endif
