@@ -2,6 +2,10 @@ This file lists various colors, for testing the supported color syntax
 
 green red blue
 
+#ffffffFF
+
+#AAbB11aa
+
 #fffffff
 
 #fff
