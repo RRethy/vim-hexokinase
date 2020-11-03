@@ -12,6 +12,17 @@ fun! hexokinase#highlighters#virtual#highlightv2(bufnr) abort
         let chunks = [[g:Hexokinase_virtualText, it.hlname]]
         if exists('*nvim_buf_get_virtual_text')
             let chunks += nvim_buf_get_virtual_text(a:bufnr, it.lnum - 1)
+        elseif exists('*nvim_buf_get_extmarks')
+            let set_chunks = nvim_buf_get_extmarks(
+                    \   a:bufnr,
+                    \   s:namespace,
+                    \   [it.lnum - 1, 0],
+                    \   [it.lnum - 1, 0],
+                    \   {'details': v:true}
+                    \ )
+            if !empty(set_chunks)
+                let chunks += set_chunks[0][3].virt_text
+            endif
         endif
         call nvim_buf_set_virtual_text(
                     \   a:bufnr,
