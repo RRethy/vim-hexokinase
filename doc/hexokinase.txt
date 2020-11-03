@@ -149,8 +149,7 @@ Highlighters                                      *g:Hexokinase_highlighters*
 
                 "virtual" will use Neovim's virtual text feature
                 (|nvim_buf_set_virtual_text()|) to display
-                the colour. However, only one colour per line can be
-                displayed.
+                the colour.
 
                 "sign_column" will use the |'sign_column'| to display the
                 colour. In Vim, only one colour per line can be displayed.
