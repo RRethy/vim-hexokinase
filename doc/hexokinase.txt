@@ -335,7 +335,7 @@ Refresh Events                                    *g:Hexokinase_refreshEvents*
 <
 Disabled TerminalBuffers                            *g:Hexokinase_termDisabled*
 
-                Type: |Integer| 
+                Type: |Integer|
                 Do not scraped any terminal buffers.
 
                 Default value: >
