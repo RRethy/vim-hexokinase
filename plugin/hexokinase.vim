@@ -15,7 +15,7 @@ if g:Hexokinase_v2
     if executable(g:Hexokinase_executable_path)
         call hexokinase#v2#setup()
     else
-        echohl Error | echom 'vim-hexokinase needs updating. Run `make hexokinase` in project root. See `:h hexokinase-v1-migration` for more info.' | echohl None
+        echohl Error | echom 'vim-hexokinase needs updating. Run `make hexokinase` in project root. See `:h hexokinase-installation` for more info.' | echohl None
     endif
 else
     call hexokinase#v1#setup()
