@@ -37,7 +37,7 @@ fun! hexokinase#v2#setup() abort
     command! HexokinaseTurnOn call hexokinase#v2#scraper#on()
     command! HexokinaseTurnOff call hexokinase#v2#scraper#off()
 
-    let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['TextChanged', 'InsertLeave', 'BufEnter'])
+    let g:Hexokinase_refreshEvents = get(g:, 'Hexokinase_refreshEvents', ['TextChanged', 'InsertLeave', 'BufRead'])
     let g:Hexokinase_ftDisabled = get(g:, 'Hexokinase_ftDisabled', [])
     let g:Hexokinase_termDisabled = get(g:, 'Hexokinase_termDisabled', 0)
 

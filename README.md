@@ -42,7 +42,7 @@ This plugin can display the colour of 6 digit hex codes, 3 digit hex codes, rgb 
 
 Colour can be displayed in each of the 6 six ways shown above, or can be customized to display colour any way the user chooses.
 
-**Note:** By default all filetypes are scraped and highlighted on `['TextChanged', 'InsertLeave', 'BufEnter']`, see `:h g:Hexokinase_refreshEvents` for more info.
+**Note:** By default all filetypes are scraped and highlighted on `['TextChanged', 'InsertLeave', 'BufRead']`, see `:h g:Hexokinase_refreshEvents` for more info.
 
 ## Requirements
 

@@ -331,7 +331,7 @@ Refresh Events                                    *g:Hexokinase_refreshEvents*
                 Which |autocmd-events| trigger a refresh of highlighting.
 
                 Default value: >
-                let g:Hexokinase_refreshEvents = ['TextChanged', 'InsertLeave', 'BufEnter']
+                let g:Hexokinase_refreshEvents = ['TextChanged', 'InsertLeave', 'BufRead']
 <
 Disabled TerminalBuffers                            *g:Hexokinase_termDisabled*
 
