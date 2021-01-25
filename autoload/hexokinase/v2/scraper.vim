@@ -137,7 +137,7 @@ fun! s:on_exit(id, status, event) abort dict
 endf
 
 fun! s:parse_colour(line) abort
-    let parts = split(a:line, ':')
+    let parts = split(a:line, hexokinase#utils#separator())
     if len(parts) != 4
         return ''
     endif

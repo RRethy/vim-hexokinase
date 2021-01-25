@@ -77,6 +77,14 @@ fun! hexokinase#utils#apply_alpha_to_rgb(primary_rgb, alpha) abort
     return [new_r, new_g, new_b]
 endf
 
+fun! hexokinase#utils#separator() abort
+    if has('win32')
+        return ';'
+    else
+        return ':'
+    endif
+endf
+
 fun! hexokinase#utils#tmpname() abort
     let l:clear_tempdir = 0
 
