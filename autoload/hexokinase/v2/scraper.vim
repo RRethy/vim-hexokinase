@@ -138,9 +138,14 @@ endf
 
 fun! s:parse_colour(line) abort
     let parts = split(a:line, ':')
-    if len(parts) != 4
-        return ''
-    endif
+    if len(parts) < 4
+         return ''
+     endif
+    " If a system allows `:` inside the filename, then we join together all
+    " parts before the final 3 (which are guaranteed to be the form
+    " lnum:col:hex). This allows the filename to remain intact. For example,
+    " Windows can prefix the filename with the drive (e.g. C:/foo/bar.txt)
+    let parts = insert(parts[-3:], join(parts[:-4], ':'))
 
     return { 'lnum': parts[1],
                 \ 'start': split(parts[2], '-')[0],
