@@ -47,10 +47,9 @@ Colour can be displayed in each of the 6 six ways shown above, or can be customi
 ## Requirements
 
 - `:h 'termguicolors'` must be turned on and your terminal must support it
+- **Golang must be installed, for more information visit https://golang.org/doc/install.**
 - For *virtual text*: Neovim 0.3.2
 - For *sign_column*: Vim compiled with `+signs` or any Neovim version
-- Golang must be installed, for more information visit https://golang.org/doc/install.
-    * Without Golang, a synchronous version of the plugin will still work, documentation can be found at `:h deprecated-hexokinase.txt`.
 - Currently, untested on Windows, help is welcomed.
 
 ## Installation
