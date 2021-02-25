@@ -6,6 +6,9 @@ fun! hexokinase#v2#setup() abort
     else
         let g:Hexokinase_highlighters = get(g:, 'Hexokinase_highlighters', ['sign_column'])
     endif
+    if len(g:Hexokinase_highlighters) == 1 && g:Hexokinase_highlighters[0] == 'sign_column' && &signcolumn == 'no'
+        echom "[vim-hexokinase] You seem to be using sign_column for highlighting but 'signcolumn' is set to 'no', try enabling it to see colours."
+    endif
 
     let g:Hexokinase_virtualText = get(g:, 'Hexokinase_virtualText', '■')
     let g:Hexokinase_signIcon = get(g:, 'Hexokinase_signIcon', '■')
