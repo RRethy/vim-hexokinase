@@ -8,7 +8,10 @@ endif
 
 let g:loaded_hexokinase = 1
 
-let g:Hexokinase_executable_path = executable(expand('<sfile>:h:h').'/hexokinase/hexokinase') ? expand('<sfile>:h:h').'/hexokinase/hexokinase' : expand($GOPATH).'/bin/hexokinase'
+let g:Hexokinase_executable_path = get(g:, 'Hexokinase_executable_path',
+            \ executable(expand('<sfile>:h:h').'/hexokinase/hexokinase')
+            \   ? expand('<sfile>:h:h').'/hexokinase/hexokinase'
+            \   : expand($GOPATH).'/bin/hexokinase')
 let g:Hexokinase_v2 = get(g:, 'Hexokinase_v2', 1)
 
 if g:Hexokinase_v2

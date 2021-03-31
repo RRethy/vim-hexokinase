@@ -414,7 +414,17 @@ Use word Boundary                                *g:Hexokinase_checkBoundary*
 
                 " will match pink but not blue or red
                 redblue pink
+
+Executable path                                *g:Hexokinase_executable_path*
+
+                Type: |String|
+                Path to the `hexokinase` executable.
+
+                Default value: >
+                    " relative to the plugin root
+                    g:Hexokinase_executable_path = 'hexokinase/hexokinase'
 <
+
 CREATE CUSTOM HIGHLIGHTERS                   *hexokinase-custom-highlighters*
 ===========================================================================
 
