@@ -97,43 +97,42 @@ fun! hexokinase#utils#tmpname() abort
 endf
 
 fun! hexokinase#utils#getPatModifications() abort
-    let cmd = ''
     if has_key(g:Hexokinase_ftOptOutPatterns, &filetype)
         let dp = g:Hexokinase_ftOptOutPatterns[&filetype]
         if type(dp) == 1
-            let cmd .= ' -dp='.substitute(dp, '\s', '', 'g')
+            return ['-dp', substitute(dp, '\s', '', 'g')]
         elseif type(dp) == 3
-            let cmd .= ' -dp='.join(dp, ',')
+            return ['-dp', join(dp, ',')]
         else
             echohl Error | echom printf('ERROR: g:Hexokinase_ftOptOutPatterns[%s] must be a string or a list', &filetype) | echohl None
         endif
     elseif has_key(g:Hexokinase_ftOptInPatterns, &filetype)
         let ep = g:Hexokinase_ftOptInPatterns[&filetype]
         if type(ep) == 1
-            let cmd .= ' -ep='.substitute(ep, '\s', '', 'g')
+            return ['-ep', substitute(ep, '\s', '', 'g')]
         elseif type(ep) == 3
-            let cmd .= ' -ep='.join(ep, ',')
+            return ['-ep', join(ep, ',')]
         else
             echohl Error | echom printf('ERROR: g:Hexokinase_ftOptInPatterns[%s] must be a string or a list', &filetype) | echohl None
         endif
     elseif !empty(g:Hexokinase_optOutPatterns)
         if type(g:Hexokinase_optOutPatterns) == 1
-            let cmd .= ' -dp='.substitute(g:Hexokinase_optOutPatterns, '\s', '', 'g')
+            return ['-dp', substitute(g:Hexokinase_optOutPatterns, '\s', '', 'g')]
         elseif type(g:Hexokinase_optOutPatterns) == 3
-            let cmd .= ' -dp='.join(g:Hexokinase_optOutPatterns, ',')
+            return ['-dp', join(g:Hexokinase_optOutPatterns, ',')]
         else
             echohl Error | echom 'ERROR: g:Hexokinase_optOutPatterns must be a string or a list' | echohl None
         endif
     elseif !empty(g:Hexokinase_optInPatterns)
         if type(g:Hexokinase_optInPatterns) == 1
-            let cmd .= ' -ep='.substitute(g:Hexokinase_optInPatterns, '\s', '', 'g')
+            return ['-ep', substitute(g:Hexokinase_optInPatterns, '\s', '', 'g')]
         elseif type(g:Hexokinase_optInPatterns) == 3
-            let cmd .= ' -ep='.join(g:Hexokinase_optInPatterns, ',')
+            return ['-ep', join(g:Hexokinase_optInPatterns, ',')]
         else
             echohl Error | echom 'ERROR: g:Hexokinase_optInPatterns must be a string or a list' | echohl None
         endif
     endif
-    return cmd
+    return []
 endf
 
 fun! hexokinase#utils#create_fg_hl(hex) abort

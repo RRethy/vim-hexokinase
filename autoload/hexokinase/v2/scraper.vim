@@ -43,7 +43,7 @@ fun! hexokinase#v2#scraper#on() abort
                     \ && (index(g:Hexokinase_highlighters, 'sign_column') == -1 || &signcolumn !~# '\v(auto|yes):[2-9]')
             call add(cmd, '-r')
         endif
-        call add(cmd, hexokinase#utils#getPatModifications())
+        call extend(cmd, hexokinase#utils#getPatModifications())
         call add(cmd, '-bg')
         call add(cmd, hexokinase#utils#get_background_hex())
         if !empty(g:Hexokinase_palettes)
