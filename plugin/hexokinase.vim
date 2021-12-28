@@ -10,19 +10,22 @@ let g:loaded_hexokinase = 1
 
 function! hexokinase#get_exec_path()
 
-	let lPaths = [
-				\ get(g:, 'Hexokinase_executable_path', expand('<sfile>:h:h') . '/hexokinase/hexokinase'),
-				\ expand($GOBIN) . '/hexokinase',
-				\ expand($GOPATH) . '/bin/hexokinase',
-				\ expand($HOME) . '/go/bin/hexokinase',
-				\ ]
+    let Expand_Guard = { a, b -> empty(a) ? '' : expand(a) . b }
+    let paths = [
+        \ get(g:, 'Hexokinase_executable_path'),
+        \ Expand_Guard('<sfile>:h:h', '/hexokinase/hexokinase'),
+        \ Expand_Guard($GOBIN, '/hexokinase'),
+        \ Expand_Guard($GOPATH, '/bin/hexokinase'),
+        \ Expand_Guard($HOME, '/go/bin/hexokinase'),
+    \ ]
 
-	let lPaths = filter(lPaths, {_, v -> executable(v) == 1 })
-	if len(lPaths) > 0
-		return lPaths[0]
-	endif
+    for exec_path in paths
+        if !empty(exec_path) && executable(exec_path)
+            return exec_path
+        endif
+    endfor
 
-	return ''
+    return ''
 
 endfunction
 
@@ -38,3 +41,4 @@ if g:Hexokinase_v2
 else
     call hexokinase#v1#setup()
 endif
+
